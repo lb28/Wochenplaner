@@ -15,10 +15,11 @@
 <body>
 	<h1>Wilkommen!</h1>
 	<form action="hello.jsp" method="post">
-		Gib deinen Namen ein:<br /> <input type="text" name="name" /> <input
+		<br /> Gib deine E-Mail ein:<input type="text" name="email"></input><br />
+		Gib dein PW ein:<input type="password" name="pw"></input> <br /> <input
 			type="submit" name="submit" value="OK" />
 	</form>
-	
+
 
 	<!--	
 	<a href="table.jsp">
