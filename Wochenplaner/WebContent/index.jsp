@@ -13,13 +13,13 @@
 <title>Wochenplaner - Startseite</title>
 </head>
 <body>
-	<h1>Willkommen!</h1>
+	<h1>Wilkommen!</h1>
 	<form action="hello.jsp" method="post">
-		Gib deinen Namen ein:<br/>
-		<input type="text" name="name" />
-		<input type="submit" name="submit" value="OK" />
+		Gib deinen Namen ein:<br /> <input type="text" name="name" /> <input
+			type="submit" name="submit" value="OK" />
 	</form>
-	<br />
+	
+
 	<!--	
 	<a href="table.jsp">
 		<input type="button" value="Table">
@@ -28,9 +28,6 @@
 	
 -->
 
-<p>
-Lorem ipsum...
-</p>
-	
+
 </body>
 </html>

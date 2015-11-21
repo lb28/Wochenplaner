@@ -14,17 +14,18 @@
 <title>Hello World!</title>
 </head>
 <body>
-
 	<h2>
 		<%
-		String name = request.getParameter("name");
-		if (name != null && name.length() > 0 && name.matches("[A-Za-z ]*")) {
-			out.println("Hallo " + name + ", willkommen beim Wochenplaner!");
-		} else {
-			out.println("Gib nächstes mal einen richtigen Namen ein!");
-		}
+			String name = request.getParameter("name");
+			if (name != null && name.length() > 0 && name.matches("[A-Za-z ]*")) {
+				out.println("Hallo " + name + ", willkommen beim Wochenplaner!");
+			} else {
+				out.println("Gib nächstes mal einen richtigen Namen ein!");
+			}
 		%>
 	</h2>
+
+	
 
 	<input type="button" onclick="window.location='table.jsp'"
 		value="Zum Wochenplaner" />
