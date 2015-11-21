@@ -1,0 +1,33 @@
+@CHARSET "ISO-8859-1";
+
+table {
+    border-collapse: collapse;
+    width: 70%;
+    border: 1px solid #cbcbcb;
+}
+
+th, td {
+	text-align: center;
+	border: 1px solid black;
+	padding: 0.2em;
+	width: 10%;
+}
+
+html {
+	font-family: 'Open Sans', sans-serif;
+}
+
+h1 {
+    font-size: 350%;
+    font-weight: 300;
+}
+
+h2 {
+    font-size: 200%;
+    font-weight: 300;
+}
+
+p, form, input, submit, td, th {
+    font-size: 100%;
+    font-weight: 400;
+}
