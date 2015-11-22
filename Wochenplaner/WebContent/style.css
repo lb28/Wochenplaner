@@ -31,3 +31,9 @@ p, form, input, submit, td, th {
     font-size: 100%;
     font-weight: 400;
 }
+
+input {
+	margin-top: 0.2em;
+	margin-bottom: 0.8em;
+	display: block;
+}

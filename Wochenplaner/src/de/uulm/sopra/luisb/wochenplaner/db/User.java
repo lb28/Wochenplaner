@@ -1,14 +1,24 @@
 package de.uulm.sopra.luisb.wochenplaner.db;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
+import de.uulm.sopra.luisb.wochenplaner.util.*;
+
 public class User {
 	private int user_id;
 	private String user_email;
 	private String pwHash;
 
-	public User(String user_email, String pwHash) {
+	public User(String user_email, String password) {
 		super();
 		this.user_email = user_email;
-		this.pwHash = pwHash;
+		try {
+			this.pwHash = PasswordHash.createHash(password);
+		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+			System.out.println("Something went wrong with hashing:");
+			e.printStackTrace();
+		}
 	}
 
 	

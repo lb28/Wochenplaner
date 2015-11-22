@@ -10,23 +10,26 @@
 <link rel="stylesheet" href="style.css" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Wochenplaner - Startseite</title>
+<title>Wochenplaner - Registrierung</title>
 </head>
+
 <body>
+	
 	<h1>Wilkommen!</h1>
 	<br />
-	<h2>Login:</h2>
-	<form action="hello.jsp" method="post">
-		E-Mail : <input type="text" name="email"></input> Passwort: <input
-			type="password" name="pw"></input> <input type="submit" name="submit"
+	<h2>Registrierung:</h2>
+	<form action="hello2.jsp" method="post">
+		E-Mail : <input type="text" name="reg_email"></input> Passwort: <input
+			type="password" name="reg_pw"></input> </input> Passwort wiederholen: <input
+			type="password" name="reg_pw2"></input> <input type="submit" name="submit"
 			value="OK" />
 	</form>
-
+	
 	<br />
 		
-	<input type="button" onclick="window.location='registration.jsp'"
-		value="Hier gehts zur Registrierung" />
-
-
+	<input type="button" onclick="window.location='index.jsp'"
+		value="Zurück zur Startseite" />
+	
 </body>
+
 </html>

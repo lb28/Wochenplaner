@@ -40,7 +40,7 @@ public class DBConnection {
 		}
 	}
 
-	public void create(User user) {
+	public void insert(User user) {
 		Connection connection = getConnection();
 		PreparedStatement pstmt;
 		try {
