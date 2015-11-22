@@ -40,9 +40,9 @@
 				<%
 					//loop over the columns
 						for (int j = 0; j < 7; j++) {
-				%><td><a target="popup"
-					onclick="window.open('', 'popup', 'width=580,height=360,scrollbars=no, toolbar=no,status=no,resizable=no,menubar=no,location=left,directories=no,top=10,left=10')"
-					href="http://google.de">Test</a></td>
+				%><td
+					onclick="window.open('http://google.de', 'popup', 'width=580,height=360,scrollbars=no, toolbar=no,status=no,resizable=no,menubar=no, location=center, directories=no, top=50, left=50')">
+				</td>
 				<%
 					}
 				%>

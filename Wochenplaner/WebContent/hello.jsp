@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<%@page import="javax.websocket.Session"%>
+<%@page import="de.uulm.sopra.luisb.wochenplaner.util.Utilities"%>
+<%@page
+	import="javax.websocket.Session, de.uulm.sopra.luisb.wochenplaner.*"%>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -16,19 +18,23 @@
 <body>
 	<h2>
 		<%
-			String name = request.getParameter("name");
-			if (name != null && name.length() > 0 && name.matches("[A-Za-z ]*")) {
-				out.println("Hallo " + name + ", willkommen beim Wochenplaner!");
-			} else {
-				out.println("Gib nächstes mal einen richtigen Namen ein!");
-			}
+			String email = request.getParameter("email");
+			if (Utilities.isValidEmailAddress(email)) {
+				out.println("Hallo " + email + ", willkommen beim Wochenplaner!");
 		%>
 	</h2>
 
-	
-
 	<input type="button" onclick="window.location='table.jsp'"
 		value="Zum Wochenplaner" />
+	<%
+		} else {
+			out.println("Gib eine richtige E-Mail ein!");
+			%>
+			</h2>
+			<%
+		}
+	%>
+
 	<input type="button" onclick="window.location='index.jsp'"
 		value="Zurück" />
 
