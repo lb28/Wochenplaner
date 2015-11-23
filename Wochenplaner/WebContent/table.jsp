@@ -36,13 +36,29 @@
 				//loop over the rows
 				for (int i = 0; i < 14; i++) {
 			%><tr>
-				<td><%=i + 8%>:00</td>
+				<td class="time">
+					<%
+						if (i+7 < 10) {
+								out.print("0");
+							}
+							out.print(i+7);
+					%>:00
+				</td>
 				<%
 					//loop over the columns
 						for (int j = 0; j < 7; j++) {
-				%><td
-					onclick="window.open('http://google.de', 'popup', 'width=580,height=360,scrollbars=no, toolbar=no,status=no,resizable=no,menubar=no, location=center, directories=no, top=50, left=50')">
-				</td>
+				%><td class="table_data"
+					onclick="window.open('tabledata.jsp?param=<%=i + ":" + j%>', 'popup', 'width=580,height=360,scrollbars=no, toolbar=no,status=no,resizable=no,menubar=no, location=center, directories=no, top=50, left=50')"
+					onmouseover="this.bgColor='#EEEEEE'"
+					onmouseout="this.bgColor='#FFFFFF'"
+					onmousedown="this.bgColor='#AAAAAA'"
+					onmouseup="this.bgColor='#EEEEEE'"
+					>
+					<!-- 
+					HIER muss sowas wie tableEntry[i][j] rein
+					 -->
+					
+					</td>
 				<%
 					}
 				%>
