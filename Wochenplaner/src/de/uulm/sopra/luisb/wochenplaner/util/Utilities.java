@@ -6,6 +6,8 @@ import java.security.spec.InvalidKeySpecException;
 import javax.mail.internet.*;
 
 import de.uulm.sopra.luisb.wochenplaner.db.DBConnection;
+import de.uulm.sopra.luisb.wochenplaner.db.User;
+import de.uulm.sopra.luisb.wochenplaner.db.UserTable;
 
 public class Utilities {
 
@@ -49,6 +51,35 @@ public class Utilities {
 		}
 
 		return isValid;
+	}
+
+	public static String getDay(int index) {
+		String[] days = { "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag" };
+		if (index < 7) {
+			return days[index];	
+		} else {
+			return null;
+		}
+	}
+
+	public static User selectUser(String email) {
+		DBConnection dbc = new DBConnection();
+		return dbc.selectUser(email);
+	}
+
+	public static void insertUser(User user) {
+		DBConnection dbc = new DBConnection();
+		dbc.insert(user);
+	}
+
+	public static UserTable getTable(int user_id) {
+		DBConnection dbc = new DBConnection();
+		return dbc.getTable(user_id);
+	}
+
+	public static boolean updateEntry(int user_id, int day, int hour, String newEntry, String newDescription) {
+		DBConnection dbc = new DBConnection();
+		return dbc.updateEntry(user_id, day, hour, newEntry, newDescription);
 	}
 
 	// for testing

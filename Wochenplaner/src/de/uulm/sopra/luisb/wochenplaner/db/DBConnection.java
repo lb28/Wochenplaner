@@ -2,6 +2,14 @@ package de.uulm.sopra.luisb.wochenplaner.db;
 
 import java.sql.*;
 
+/**
+ * @author Luis
+ *
+ */
+/**
+ * @author Luis
+ *
+ */
 public class DBConnection {
 
 	public Connection getConnection() {
@@ -88,14 +96,67 @@ public class DBConnection {
 		}
 	}
 
-	// TODO insert entry into table
-	// TODO update entry
+	/**
+	 * updates one cell of the Table
+	 * 
+	 * @param day
+	 * @param hour
+	 * @param newEntry
+	 * @return true if the update was successful, false otherwise
+	 */
+	public boolean updateEntry(int user_id, int day, int hour, String newEntry, String newDescription) {
+		// get the specified entry
+		Connection connection = getConnection();
+		PreparedStatement pstmt;
+
+		try {
+			pstmt = connection
+					.prepareStatement("SELECT entry FROM usertable_" + user_id + " WHERE day = ? AND hour = ?");
+			pstmt.setInt(1, day);
+			pstmt.setInt(2, hour);
+			ResultSet rs = pstmt.executeQuery();
+
+			// if there was an entry, update it
+			if (rs.next()) {
+				pstmt = connection.prepareStatement("UPDATE usertable_? SET entry = ?, description = ? WHERE day = ? AND hour = ?;");
+				pstmt.setInt(1, user_id);
+				pstmt.setString(2, newEntry);
+				pstmt.setString(3, newDescription);
+				pstmt.setInt(4, day);
+				pstmt.setInt(5, hour);
+				// execute the query and return true (success)
+				pstmt.execute();
+				return true;
+
+				// if there was no entry, insert one
+			} else {
+				pstmt = connection.prepareStatement("INSERT INTO usertable_? (day,hour,entry,description) VALUES (?,?,?,?);");
+				pstmt.setInt(1, user_id);
+				pstmt.setInt(2, day);
+				pstmt.setInt(3, hour);
+				pstmt.setString(4, newEntry);
+				pstmt.setString(5, newDescription);
+				pstmt.execute();
+				return true;
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
+		}
+
+		return false;
+	}
 
 	public UserTable getTable(int user_id) {
 		Connection connection = getConnection();
 		String sql = "SELECT * FROM usertable_" + user_id + ";";
 		PreparedStatement pstmt;
-		String[][] entries = new String[6][13];
+		String[][] entries = new String[7][14];
+		String[][] descriptions = new String[7][14];
+		UserTable userTable = null;
 		int day = 0;
 		int hour = 0;
 
@@ -107,6 +168,8 @@ public class DBConnection {
 				day = rs.getInt("day");
 				hour = rs.getInt("hour");
 				entries[day][hour] = rs.getString("entry");
+				descriptions[day][hour] = rs.getString("description");
+//				System.out.println(day+ " "+hour + " " + entries[day][hour]);
 			}
 
 		} catch (SQLException e) {
@@ -114,7 +177,9 @@ public class DBConnection {
 			e.printStackTrace();
 		}
 
-		return null;
+		userTable = new UserTable(user_id, entries, descriptions);
+		
+		return userTable;
 	}
 
 	public User selectUser(String email) {
@@ -144,6 +209,35 @@ public class DBConnection {
 		}
 
 		return user;
+	}
+
+	/**
+	 * deletes a user from the user table and drops his week table
+	 * 
+	 * @param email
+	 * @return true if deletion was successful, or false if it was unsuccessful
+	 */
+	public boolean deleteUser(int id) {
+		Connection connection = getConnection();
+		PreparedStatement pstmt;
+
+		try {
+			pstmt = connection.prepareStatement("DELETE FROM user WHERE user_id = ?");
+			pstmt.setInt(1, id);
+			pstmt.execute();
+			
+			pstmt = connection.prepareStatement("DROP TABLE usertable_?");
+			pstmt.setInt(1, id);
+			pstmt.execute();
+			
+			return true;
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			closeConnection(connection);
+		}
 	}
 
 	/**
@@ -178,8 +272,8 @@ public class DBConnection {
 	}
 
 	public static void main(String[] args) {
-		// DBConnection dbc = new DBConnection();
-		// System.out.println(dbc.selectUser("admin@admin.de"));
+		DBConnection dbc = new DBConnection();
+		dbc.getTable(1);
 	}
 
 }

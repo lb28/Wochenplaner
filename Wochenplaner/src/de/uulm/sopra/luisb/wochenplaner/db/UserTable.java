@@ -3,6 +3,7 @@ package de.uulm.sopra.luisb.wochenplaner.db;
 public class UserTable {
 	private int user_id;
 	private String[][] entries;
+	private String[][] descriptions;
 	
 	public int getUser_id() {
 		return user_id;
@@ -19,10 +20,31 @@ public class UserTable {
 	public void setEntry(int day, int hour, String entry) {
 		entries[day][hour] = entry;
 	}
+	
+	public String getDescription(int day, int hour) {
+		return descriptions[day][hour];
+	}
 
-	public UserTable(int user_id, String[][] entries) {
+	public void setDescription(int day, int hour, String entry) {
+		descriptions[day][hour] = entry;
+	}
+
+	public UserTable(int user_id, String[][] entries, String[][] descriptions) {
 		this.user_id = user_id;
 		this.entries = entries;
+		this.descriptions = descriptions;
+		
+		//set all the null values to ""
+		for (int i = 0; i < entries.length; i++) {
+			for (int j = 0; j < entries[0].length; j++) {
+				if (entries[i][j] == null) {
+					entries[i][j] = "";
+				}
+				if (descriptions[i][j] == null) {
+					descriptions[i][j] = "";
+				}
+			}
+		}
 	}
 	
 }

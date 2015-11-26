@@ -1,19 +1,26 @@
 @CHARSET "ISO-8859-1";
 
+html {
+	font-family: 'Open Sans', sans-serif;
+	/*	font-family: 'Raleway', sans-serif; */
+}
+
 table {
-    border-collapse: collapse;
-    width: 70%;
-    border: 1px solid #cbcbcb;
-    max-width: 1080px;
-    min-width: 480px;
+	border-collapse: collapse;
+	width: 70%;
+	border: 1px solid #cbcbcb;
+	max-width: 1080px;
+	min-width: 480px;
 }
 
 th, td.time {
 	text-align: center;
-	border: 1px solid black;
+	border: 1px solid #999999;
 	padding: 0.2em;
 	width: 10%;
-	background: #cce5ff
+	background: #191818;
+	color: #999999;
+	font-weight: 400;
 }
 
 td.table_data {
@@ -21,26 +28,35 @@ td.table_data {
 	border: 1px solid black;
 	padding: 0.2em;
 	width: 10%;
+	max-width: 150px;
 	cursor: pointer;
-}
-
-html {
-	font-family: 'Open Sans', sans-serif;
+	word-wrap: break-word;
+	color: #191818;
 }
 
 h1 {
-    font-size: 350%;
-    font-weight: 300;
+	font-size: 350%;
+	font-weight: 300;
+	color: #4b4b4b;
 }
 
 h2 {
-    font-size: 200%;
-    font-weight: 300;
+	font-size: 200%;
+	font-weight: 300;
+	word-wrap: break-word;
+	color: #4b4b4b;
 }
 
-p, form, input, submit, td, th {
-    font-size: 100%;
-    font-weight: 400;
+h3 {
+	font-size: 150%;
+	font-weight: 300;
+	color: #4b4b4b;
+}
+
+p, form, input, submit, td {
+	font-size: 100%;
+	font-weight: 400;
+	color: #191818;
 }
 
 input {

@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Raleway:200">
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,400italic,700,700italic,300italic'
 	rel='stylesheet' type='text/css' />
@@ -16,7 +17,6 @@
 <body>
 	
 	<h1>Wilkommen!</h1>
-	<br />
 	<h2>Registrierung:</h2>
 	<form action="hello.jsp" method="post">
 		E-Mail : <input type="email" name="reg_email"/>

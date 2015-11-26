@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <%@page import="de.uulm.sopra.luisb.wochenplaner.util.Utilities"%>
 <%@page import="de.uulm.sopra.luisb.wochenplaner.db.User"%>
-<%@page import="de.uulm.sopra.luisb.wochenplaner.db.DBConnection"%>
 <%@page import="javax.websocket.Session"%>
 
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -9,6 +8,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Raleway:200">
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,400italic,700,700italic,300italic'
 	rel='stylesheet' type='text/css' />
@@ -28,26 +28,34 @@
 	<h2>Fehler, bitte geh zurück auf die Startseite</h2>
 	<p>(source: null)</p>
 	<%
-		//check for the first source
+		//check if the source is the login page
 		} else if (source_page.equals("index.jsp")) {
 
 			String email = request.getParameter("login_email");
 			String password = request.getParameter("login_pw");
+			int currentUserID = 0;
 			if (Utilities.validatePassword(email, password)) {
-	%><h2>
+				User currentUser = Utilities.selectUser(email);
+				session.setAttribute("currentUserID", currentUser.getUser_id());
+	%>
+	<h3>
 		Hallo
-		<%=email%>, willkommen bei deinem Wochenplaner!
-	</h2>
+		<%=email%>,
+		willkommen bei deinem Wochenplaner!
+	</h3>
 
-	<input type="button" onclick="window.location='table.jsp'"
-		value="Zum Wochenplaner" />
+	<form action="table.jsp" method="post">
+		<input type="submit" name="submit" value="Zum Wochenplaner" /> <input
+			type="hidden" name="source_page" value="hello.jsp" />
+	</form>
+
 	<%
 		} else {
 	%>
 	<h2>Falsche E-Mail-Adresse oder falsches Passwort</h2>
 	<%
 		}
-			//check for the next source
+			//check if the source is the registration page
 		} else if (source_page.equals("registration.jsp")) {
 			String email = request.getParameter("reg_email");
 			String pw1 = request.getParameter("reg_pw1");
@@ -57,8 +65,7 @@
 					&& pw2.length() > 0) {
 				if (Utilities.isValidAccount(email, pw1, pw2)) {
 					User user = new User(email, pw1);
-					DBConnection DBCon = new DBConnection();
-					DBCon.insert(user);
+					Utilities.insertUser(user);
 	%>
 	<h2>
 		Hallo
