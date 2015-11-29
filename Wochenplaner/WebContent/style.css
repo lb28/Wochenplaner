@@ -13,11 +13,17 @@ table {
 	min-width: 480px;
 }
 
+table.printTable {
+	width: 1500px;
+	height: 600px;
+}
+
 th, td.time {
 	text-align: center;
 	border: 1px solid #999999;
-	padding: 0.2em;
+/* 	padding: 0.2em; */
 	width: 10%;
+	height: 10px;
 	background: #191818;
 	color: #999999;
 	font-weight: 400;
@@ -26,7 +32,7 @@ th, td.time {
 td.table_data {
 	text-align: center;
 	border: 1px solid black;
-	padding: 0.2em;
+/*	padding: 0.2em; */
 	width: 10%;
 	max-width: 150px;
 	cursor: pointer;
@@ -63,4 +69,8 @@ input {
 	margin-top: 0.2em;
 	margin-bottom: 0.8em;
 	display: block;
+}
+
+input.table_btns {
+	display: inline;
 }

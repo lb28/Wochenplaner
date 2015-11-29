@@ -24,10 +24,8 @@
 
 		//check if there is a source param at all (there should be)
 		if (source_page == null) {
-	%>
-	<h2>Fehler, bitte geh zurück auf die Startseite</h2>
-	<p>(source: null)</p>
-	<%
+			response.sendRedirect("index.jsp");
+
 		//check if the source is the login page
 		} else if (source_page.equals("index.jsp")) {
 

@@ -16,7 +16,7 @@
 </head>
 <%
 	if (session.getAttribute("CurrentUserID") != null) {
-		//TODO: redirect to table.jsp
+		response.sendRedirect("table.jsp");
 	}
 %>
 
@@ -25,8 +25,8 @@
 	<h1>Wilkommen!</h1>
 	<h2>Login:</h2>
 	<form action="hello.jsp" method="post">
-		E-Mail : <input type="email" name="login_email" /> Passwort: <input
-			type="password" name="login_pw" /> <input type="submit" name="submit"
+		E-Mail : <input type="email" name="login_email"/> Passwort: <input
+			type="password" name="login_pw"/> <input type="submit" name="submit"
 			value="OK" /> <input type="hidden" name="source_page"
 			value="index.jsp" />
 	</form>

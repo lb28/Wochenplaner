@@ -6,7 +6,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Raleway:200">
+<link rel="stylesheet"
+	href="http://fonts.googleapis.com/css?family=Raleway:200">
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,400italic,700,700italic,300italic'
 	rel='stylesheet' type='text/css' />
@@ -27,19 +28,21 @@
 
 	<%
 		String source_page = request.getParameter("source_page");
-		int currentUserID = (Integer) session.getAttribute("currentUserID");
-		if (source_page == null) {
-	%>
-	<h2>Fehler, bitte geh zurück auf die Startseite</h2>
-	<p>(source: null)</p>
-	<%
+
+		if (session.getAttribute("currentUserID") == null) {
+			response.sendRedirect("index.jsp");
 		} else {
-			if (source_page.equals("tabledata.jsp")) {
-				int day = Integer.parseInt(request.getParameter("day"));
-				int hour = Integer.parseInt(request.getParameter("hour"));
-				String newEntry = request.getParameter("edit_title");
-				String newDescription = request.getParameter("edit_description");
-				if (Utilities.updateEntry(currentUserID, day, hour, newEntry, newDescription) == false) {
+			int currentUserID = (Integer) session.getAttribute("currentUserID");
+
+			if (source_page == null) {
+				response.sendRedirect("table.jsp");
+			} else {
+				if (source_page.equals("tabledata.jsp")) {
+					int day = Integer.parseInt(request.getParameter("day"));
+					int hour = Integer.parseInt(request.getParameter("hour"));
+					String newEntry = request.getParameter("edit_title");
+					String newDescription = request.getParameter("edit_description");
+					if (Utilities.updateEntry(currentUserID, day, hour, newEntry, newDescription) == false) {
 	%><h2>Fehler!</h2>
 	<%
 		} else {
@@ -47,6 +50,7 @@
 	<%
 		}
 
+				}
 			}
 		}
 	%>

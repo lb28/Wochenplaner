@@ -8,7 +8,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <link rel="stylesheet"
-	href="http://fonts.googleapis.com/css?family=Raleway:200" />
+	href="http://fonts.googleapis.com/css?family=Raleway:200">
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,400italic,700,700italic,300italic'
 	rel='stylesheet' type='text/css' />
@@ -42,23 +42,25 @@
 	}
 </script>
 
-<body>
+<script language="javascript">
+	function printAndGoBack() {
+		window.print();
+		window.location='table.jsp';
+	}
+</script>
+
+<body onload="printAndGoBack()">
 	<h2>
+		<!--
 		<span id="clockString"> <script type="text/javascript">
 			var d = new Date();
 			document.write("Datum: " + d.toLocaleString());
-		</script>
-		</span>
+		</script></span>
+		 -->
 	</h2>
 
-	<input class="table_btns" type="submit" onclick="window.location='index.jsp'"
-		value="Logout" />
-	<input class="table_btns" type="button" onclick="window.location='printTable.jsp'"
-		value="Drucken" />
-
-
 	<!-- table body is created with for loops -->
-	<table>
+	<table class="printTable">
 		<thead>
 			<tr>
 				<th></th>
@@ -111,6 +113,7 @@
 	<%
 		}
 	%>
+
 
 </body>
 </html>
