@@ -1,5 +1,15 @@
 @CHARSET "ISO-8859-1";
 
+@media print {
+	
+	*{-webkit-print-color-adjust:exact;}
+	
+	@page {
+		size: landscape;
+	}
+}
+
+
 html {
 	font-family: 'Open Sans', sans-serif;
 	/*	font-family: 'Raleway', sans-serif; */
@@ -7,21 +17,22 @@ html {
 
 table {
 	border-collapse: collapse;
-	width: 70%;
 	border: 1px solid #cbcbcb;
-	max-width: 1080px;
+	width: 80%;
+	max-width: 2000px;
 	min-width: 480px;
+	min-height: 550px;
 }
 
 table.printTable {
 	width: 1500px;
-	height: 600px;
+	height: 700px;
 }
 
 th, td.time {
 	text-align: center;
 	border: 1px solid #999999;
-/* 	padding: 0.2em; */
+	/* 	padding: 0.2em; */
 	width: 10%;
 	height: 10px;
 	background: #191818;
@@ -32,12 +43,13 @@ th, td.time {
 td.table_data {
 	text-align: center;
 	border: 1px solid black;
-/*	padding: 0.2em; */
+	/*	padding: 0.2em; */
 	width: 10%;
 	max-width: 150px;
 	cursor: pointer;
 	word-wrap: break-word;
 	color: #191818;
+	padding: 1px;
 }
 
 h1 {
@@ -57,6 +69,12 @@ h3 {
 	font-size: 150%;
 	font-weight: 300;
 	color: #4b4b4b;
+	margin-bottom: 5px;
+}
+
+#rightheader {
+	float: right;
+	padding-right: 20%;
 }
 
 p, form, input, submit, td {
@@ -67,10 +85,13 @@ p, form, input, submit, td {
 
 input {
 	margin-top: 0.2em;
-	margin-bottom: 0.8em;
+	margin-bottom: 0.5em;
+	padding-bottom: 0.2em;
 	display: block;
 }
 
 input.table_btns {
 	display: inline;
+	margin-right: 0.2em;
+	margin-top: 1.8em;
 }

@@ -50,14 +50,15 @@
 </script>
 
 <body onload="printAndGoBack()">
+	<!--
 	<h2>
-		<!--
 		<span id="clockString"> <script type="text/javascript">
 			var d = new Date();
 			document.write("Datum: " + d.toLocaleString());
 		</script></span>
-		 -->
 	</h2>
+	-->
+	
 
 	<!-- table body is created with for loops -->
 	<table class="printTable">

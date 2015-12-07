@@ -8,14 +8,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Raleway:200">
-<link
-	href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,400italic,700,700italic,300italic'
-	rel='stylesheet' type='text/css' />
-<link rel="stylesheet" href="style.css" type="text/css" />
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Veranstaltung bearbeiten</title>
+<link rel="stylesheet"
+	href="http://fonts.googleapis.com/css?family=Raleway:200">
+	<link
+		href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,400italic,700,700italic,300italic'
+		rel='stylesheet' type='text/css' />
+	<link rel="stylesheet" href="style.css" type="text/css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Veranstaltung bearbeiten</title>
 </head>
 <body>
 
@@ -42,28 +43,47 @@
 			}
 	%>
 
-	<h2>Veranstaltung bearbeiten</h2>
+	<h3>Veranstaltung bearbeiten</h3>
 	<%
 		if (dayString != null) {
 	%>
-	<h3>
+	<p>
 		<%=dayString%>,
 		<%=hour + 7%>
 		Uhr
-	</h3>
+	</p>
 	<%
 		}
 	%>
-
+	
+	<!-- form for editing an entry -->
 	<form action="done.jsp" method="post">
-		Titel: <input type="text" name="edit_title" value="<%=entry%>" />
-		Beschreibung: <input type="text" name="edit_description" value="<%=description %>" />
-		<input type="submit" name="submit"
-			value="Speichern" /> <input type="hidden" name="source_page"
-			value="tabledata.jsp" /> <input type="hidden" name="day"
-			value="<%=day%>" /> <input type="hidden" name="hour"
-			value="<%=hour%>" />
+		Titel: <input type="text" name="edit_title" value="<%=entry%>"
+			autofocus="autofocus" /> Beschreibung: <input type="text"
+			name="edit_description" value="<%=description%>" /> <input
+			type="submit" name="submit" value="Speichern" /> <input
+			type="hidden" name="source_page" value="tabledata.jsp_edit" /> <input
+			type="hidden" name="day" value="<%=day%>" /> <input type="hidden"
+			name="hour" value="<%=hour%>" />
 	</form>
+
+	<!-- form for deleting an entry -->
+	<form action="done.jsp" method="post">
+		<input type="submit" name="submit" value="Eintrag löschen" /> <input
+			type="hidden" name="source_page" value="tabledata.jsp_delete" /> <input
+			type="hidden" name="day" value="<%=day%>" /> <input type="hidden"
+			name="hour" value="<%=hour%>" />
+	</form>
+
+	<!-- form for editing an entry -->
+	<form action="done.jsp" method="post">
+		<input type="submit" name="submit" value="Alle Termine der Verantstaltung löschen" /> <input
+			type="hidden" name="source_page" value="tabledata.jsp_deleteAll" /> <input
+			type="hidden" name="day" value="<%=day%>" /> <input type="hidden"
+			name="hour" value="<%=hour%>" />
+	</form>
+
+
 	<input type="button" onclick="window.close()" value="Abbrechen" />
 	<%
 		}

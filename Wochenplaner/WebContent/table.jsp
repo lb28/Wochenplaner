@@ -42,15 +42,16 @@
 	}
 </script>
 
+
 <body>
-	<h2>
+	<h3 id="rightheader">
 		<span id="clockString"> <script type="text/javascript">
 			var d = new Date();
 			document.write("Datum: " + d.toLocaleString());
 		</script>
 		</span>
-	</h2>
-
+	</h3>
+<!-- 'menu' buttons -->
 	<input class="table_btns" type="submit" onclick="window.location='index.jsp'"
 		value="Logout" />
 	<input class="table_btns" type="button" onclick="window.location='printTable.jsp'"

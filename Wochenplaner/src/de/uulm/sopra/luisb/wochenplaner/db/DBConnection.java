@@ -3,11 +3,7 @@ package de.uulm.sopra.luisb.wochenplaner.db;
 import java.sql.*;
 
 /**
- * @author Luis
- *
- */
-/**
- * @author Luis
+ * @author Luis Beaucamp
  *
  */
 public class DBConnection {
@@ -89,7 +85,6 @@ public class DBConnection {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.execute();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			closeConnection(connection);
@@ -118,7 +113,8 @@ public class DBConnection {
 
 			// if there was an entry, update it
 			if (rs.next()) {
-				pstmt = connection.prepareStatement("UPDATE usertable_? SET entry = ?, description = ? WHERE day = ? AND hour = ?;");
+				pstmt = connection.prepareStatement(
+						"UPDATE usertable_? SET entry = ?, description = ? WHERE day = ? AND hour = ?;");
 				pstmt.setInt(1, user_id);
 				pstmt.setString(2, newEntry);
 				pstmt.setString(3, newDescription);
@@ -137,17 +133,16 @@ public class DBConnection {
 				pstmt.setString(4, newEntry);
 				pstmt.setString(5, newDescription);
 				pstmt.execute();
+				
+				closeConnection(connection);
 				return true;
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
 			closeConnection(connection);
+			return false;
 		}
-
-		return false;
 	}
 
 	public UserTable getTable(int user_id) {
@@ -169,19 +164,45 @@ public class DBConnection {
 				hour = rs.getInt("hour");
 				entries[day][hour] = rs.getString("entry");
 				descriptions[day][hour] = rs.getString("description");
-//				System.out.println(day+ " "+hour + " " + entries[day][hour]);
+				// System.out.println(day+ " "+hour + " " + entries[day][hour]);
 			}
+			userTable = new UserTable(user_id, entries, descriptions);
+			return userTable;
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
-
-		userTable = new UserTable(user_id, entries, descriptions);
-		
-		return userTable;
 	}
 
+	public User selectUser(int user_id) {
+		User user = null;
+		String email;
+		String pwHash;
+		Connection connection = getConnection();
+		PreparedStatement pstmt;
+
+		try {
+			pstmt = connection.prepareStatement("SELECT * FROM user WHERE user_id = ?");
+			pstmt.setInt(1, user_id);
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				email = rs.getString("user_email");
+				pwHash = rs.getString("user_pwHash");
+
+				user = new User(user_id, email, pwHash);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			closeConnection(connection);
+		}
+
+		return user;
+	}
+	
 	public User selectUser(String email) {
 		User user = null;
 		int id;
@@ -225,13 +246,13 @@ public class DBConnection {
 			pstmt = connection.prepareStatement("DELETE FROM user WHERE user_id = ?");
 			pstmt.setInt(1, id);
 			pstmt.execute();
-			
+
 			pstmt = connection.prepareStatement("DROP TABLE usertable_?");
 			pstmt.setInt(1, id);
 			pstmt.execute();
-			
+
 			return true;
-		
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -260,20 +281,93 @@ public class DBConnection {
 			if (rs.next()) {
 				pwHash = rs.getString("user_pwHash");
 			}
-
+			
+			closeConnection(connection);
+			return pwHash;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
-		} finally {
 			closeConnection(connection);
+			return null;
 		}
+	}
 
-		return pwHash;
+	public boolean deleteAllEvents(int user_id, String event) {
+		Connection connection = getConnection();
+		PreparedStatement pstmt;
+
+		try {
+			pstmt = connection.prepareStatement("DELETE FROM usertable_? WHERE entry = ?");
+			pstmt.setInt(1, user_id);
+			pstmt.setString(2, event);
+			pstmt.execute();
+
+			// ...success
+			closeConnection(connection);
+			return true;
+		} catch (SQLException e) {
+
+			// ...failure
+			e.printStackTrace();
+			closeConnection(connection);
+			return false;
+		}
+	}
+
+	/**
+	 * updates the descriptions of all events with a given entry.
+	 * 
+	 * @param user_id
+	 * @param entry
+	 * @param newDescription
+	 * @return true, if the update was successful, false otherwise
+	 */
+	public boolean updateAll(int user_id, String entry, String newDescription) {
+		Connection connection = getConnection();
+		PreparedStatement pstmt;
+
+		try {
+			pstmt = connection.prepareStatement("UPDATE usertable_? SET description = ? WHERE entry = ?;");
+			pstmt.setInt(1, user_id);
+			pstmt.setString(2, newDescription);
+			pstmt.setString(3, entry);
+			pstmt.execute();
+			closeConnection(connection);
+			// ...success
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			closeConnection(connection);
+			// ...failure
+			return false;
+		}
 	}
 
 	public static void main(String[] args) {
 		DBConnection dbc = new DBConnection();
-		dbc.getTable(1);
 	}
+	
+
+	//////////// MÜLL? /////////////
+
+	/**
+	 * for looking up the description of an event with a given entry
+	 * 
+	 * @param user_id
+	 * @param entry
+	 * @return the description of the entry
+	 */
+	/*
+	 * public String getDescription(int user_id, String entry) { Connection
+	 * connection = getConnection(); PreparedStatement pstmt;
+	 * 
+	 * try { pstmt = connection.prepareStatement(
+	 * "SELECT description FROM usertable_? WHERE entry = ?"); pstmt.setInt(1,
+	 * user_id); pstmt.setString(2, entry); ResultSet rs = pstmt.executeQuery();
+	 * //TODO nicht nicht fertig } catch (SQLException e) { e.printStackTrace();
+	 * return null } return null; }
+	 */
+
+	//////////// MÜLL ENDE /////////////
 
 }

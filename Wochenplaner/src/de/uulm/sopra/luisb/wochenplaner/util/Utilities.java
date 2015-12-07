@@ -2,6 +2,8 @@ package de.uulm.sopra.luisb.wochenplaner.util;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Collections;
+import java.util.LinkedList;
 
 import javax.mail.internet.*;
 
@@ -56,10 +58,29 @@ public class Utilities {
 	public static String getDay(int index) {
 		String[] days = { "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag" };
 		if (index < 7) {
-			return days[index];	
+			return days[index];
 		} else {
 			return null;
 		}
+	}
+
+	/**
+	 * returns a LinkedList with all unique entries (e.g. the events)
+	 */
+	public static LinkedList<String> getUniqueEntries(int user_id) {
+		UserTable userTable = getTable(user_id);
+		LinkedList<String> uniqueEntries = new LinkedList<>();
+
+		for (int hour = 0; hour < 14; hour++) {
+			for (int day = 0; day < 7; day++) {
+				String entry = userTable.getEntry(day, hour);
+				//if the entry is not in the list yet and it is not empty, add it to the list
+				if (!(uniqueEntries.contains(entry)) && (!entry.equals(""))) {
+					uniqueEntries.add(entry);
+				}
+			}
+		}
+		return uniqueEntries;
 	}
 
 	public static User selectUser(String email) {
@@ -76,15 +97,29 @@ public class Utilities {
 		DBConnection dbc = new DBConnection();
 		return dbc.getTable(user_id);
 	}
-
+	
+	public static boolean updateAll(int user_id, String entry, String newDescription) {
+		DBConnection dbc = new DBConnection();
+		return dbc.updateAll(user_id, entry, newDescription);
+	}
+	
+	public static boolean deleteEntry(int user_id, int day, int hour) {
+		return updateEntry(user_id, day, hour, "", "");
+	}
+	
 	public static boolean updateEntry(int user_id, int day, int hour, String newEntry, String newDescription) {
 		DBConnection dbc = new DBConnection();
 		return dbc.updateEntry(user_id, day, hour, newEntry, newDescription);
 	}
+	
+	public static boolean deleteAllEvents(int user_id, String event) {
+		DBConnection dbc = new DBConnection();
+		return dbc.deleteAllEvents(user_id, event);
+	}
 
 	// for testing
 	public static void main(String[] args) {
-
+		
 	}
 
 }

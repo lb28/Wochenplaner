@@ -1,5 +1,9 @@
 package de.uulm.sopra.luisb.wochenplaner.db;
 
+/**
+ * @author Luis
+ *
+ */
 public class UserTable {
 	private int user_id;
 	private String[][] entries;
@@ -27,6 +31,25 @@ public class UserTable {
 
 	public void setDescription(int day, int hour, String entry) {
 		descriptions[day][hour] = entry;
+	}
+	
+	
+	/** searches for an entry in the users table
+	 * @param entry
+	 * @return true, if the table contains the entry, false otherwise
+	 */
+	public boolean contains(String entry) {
+		if (entry.equals("")) {
+			return false;
+		}
+		for (int i = 0; i < entries.length; i++) {
+			for (int j = 0; j < entries[0].length; j++) {
+				if (entries[i][j].equals(entry)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	public UserTable(int user_id, String[][] entries, String[][] descriptions) {
