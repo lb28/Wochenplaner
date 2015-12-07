@@ -40,14 +40,13 @@
 	<form action="hello.jsp" method="post">
 		E-Mail : <input type="email" name="login_email" /> Passwort: <input
 			type="password" name="login_pw" /> <input type="submit"
-			name="submit" value="OK" /> <input type="hidden" name="source_page"
+			name="submit" value="Login" /> <input type="hidden" name="source_page"
 			value="index.jsp" />
 	</form>
 
 	<br />
 
-	<input type="button" onclick="window.location='registration.jsp'"
-		value="Hier gehts zur Registrierung" />
+	<a href="registration.jsp">Hier gehts zur Registrierung</a>
 
 
 </body>

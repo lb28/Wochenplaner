@@ -15,14 +15,16 @@
 <link rel="stylesheet" href="style.css" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<!-- to prevent caching (this does not work yet-->
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
-<meta http-equiv="Pragma" content="no-cache"/>
-<meta http-equiv="Expires" content="0"/>
 
 <title>Wochenplaner</title>
 </head>
 <%
+	//caching prevention (setting these as meta tags does not work)
+	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+	response.setHeader("Pragma", "no-cache");
+	response.setDateHeader("Expires", 0);
+
+	
 	String source_page = request.getParameter("source_page");
 	UserTable currentUserTable = null;
 
@@ -56,13 +58,13 @@
 		</script>
 		</span>
 	</h3>
-<!-- 'menu' buttons -->
+	<!-- 'menu' buttons -->
 	<form class="table_btns" action="index.jsp">
-		<input class="table_btns" type="submit" value="Logout" />
-		<input type="hidden" name="source_page" value="table.jsp_logout"/>
+		<input class="table_btns" type="submit" value="Logout" /> <input
+			type="hidden" name="source_page" value="table.jsp_logout" />
 	</form>
-	<input class="table_btns" type="button" onclick="window.location='printTable.jsp'"
-		value="Drucken" />
+	<input class="table_btns" type="button"
+		onclick="window.location='printTable.jsp'" value="Drucken" />
 
 
 	<!-- table body is created with for loops -->
