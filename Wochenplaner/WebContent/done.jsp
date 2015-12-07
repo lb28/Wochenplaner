@@ -43,7 +43,7 @@
 					int hour = Integer.parseInt(request.getParameter("hour"));
 					String newEntry = request.getParameter("edit_title");
 					String newDescription = request.getParameter("edit_description");
-					UserTable userTable = Utilities.getTable(currentUserID);
+					UserTable userTable = Utilities.getTable(currentUserID);					
 					if (Utilities.updateEntry(currentUserID, day, hour, newEntry, newDescription) == false) {
 	%><h2>Fehler!</h2>
 	<p>Update fehlgeschlagen.</p>
@@ -61,8 +61,8 @@
 	<form action="setAllDescriptions.jsp" method="post">
 		<input type="submit" name="submit" value="Ja" /> <input
 			type="hidden" name="source_page" value="done.jsp_setAllDescriptions" />
-		<input type="hidden" name="entry" value=<%=newEntry%> /> <input
-			type="hidden" name="description" value=<%=newDescription%> />
+		<input type="hidden" name="entry" value="<%=newEntry%>" /> <input
+			type="hidden" name="description" value="<%=newDescription%>" />
 	</form>
 	<input type="button" value="Nein" onclick="closeAndRefresh()" />
 	<%

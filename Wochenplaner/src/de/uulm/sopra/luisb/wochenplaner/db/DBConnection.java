@@ -320,9 +320,9 @@ public class DBConnection {
 	 * @param user_id
 	 * @param entry
 	 * @param newDescription
-	 * @return true, if the update was successful, false otherwise
+	 * @return the update count, if the update was successful, 0 otherwise
 	 */
-	public boolean updateAll(int user_id, String entry, String newDescription) {
+	public int updateAll(int user_id, String entry, String newDescription) {
 		Connection connection = getConnection();
 		PreparedStatement pstmt;
 
@@ -331,15 +331,15 @@ public class DBConnection {
 			pstmt.setInt(1, user_id);
 			pstmt.setString(2, newDescription);
 			pstmt.setString(3, entry);
-			pstmt.execute();
+			int updateCount = pstmt.executeUpdate();
 			closeConnection(connection);
 			// ...success
-			return true;
+			return updateCount;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			closeConnection(connection);
 			// ...failure
-			return false;
+			return -1;
 		}
 	}
 

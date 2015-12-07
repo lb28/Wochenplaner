@@ -98,7 +98,7 @@ public class Utilities {
 		return dbc.getTable(user_id);
 	}
 	
-	public static boolean updateAll(int user_id, String entry, String newDescription) {
+	public static int updateAll(int user_id, String entry, String newDescription) {
 		DBConnection dbc = new DBConnection();
 		return dbc.updateAll(user_id, entry, newDescription);
 	}

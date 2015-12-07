@@ -15,6 +15,8 @@
 <title>Wochenplaner - Startseite</title>
 </head>
 <%
+	//TODO source page table --> logout
+	
 	if (session.getAttribute("CurrentUserID") != null) {
 		response.sendRedirect("table.jsp");
 	}
@@ -22,7 +24,7 @@
 
 
 <body>
-	<h1>Wilkommen!</h1>
+	<h1>Willkommen!</h1>
 	<h2>Login:</h2>
 	<form action="hello.jsp" method="post">
 		E-Mail : <input type="email" name="login_email"/> Passwort: <input

@@ -42,7 +42,13 @@
 					String entry = request.getParameter("entry");
 					String newDescription = request.getParameter("description");
 					
-					if (Utilities.updateAll(currentUserID, entry, newDescription) == false) {
+/* 					// debugging
+					System.out.println("Entry: \""+entry+"\" ");
+					System.out.println("Description: \""+newDescription+"\" ");
+ */					
+					int updateCount = Utilities.updateAll(currentUserID, entry, newDescription);
+					
+					if (updateCount == -1) {
 	%>
 	<h2>Fehler!</h2>
 	<p>Update fehlgeschlagen.</p>
@@ -50,6 +56,7 @@
 		} else {
 	%>
 	<h2>Änderung für alle Termine gespeichert</h2>
+	<p>(<%=updateCount%> Einträge wurden überschrieben)</p>
 	<input type="button" onclick="closeAndRefresh()"
 		value="Zum Wocheplaner" autofocus="autofocus" />
 	<%
