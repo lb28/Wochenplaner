@@ -15,6 +15,10 @@
 <link rel="stylesheet" href="style.css" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- to prevent caching -->
+<meta http-equiv="Pragma" content="no-cache"/>
+<meta http-equiv="Cache-Control" content="no-cache"/>
+
 <title>Wochenplaner</title>
 </head>
 <%
@@ -52,8 +56,10 @@
 		</span>
 	</h3>
 <!-- 'menu' buttons -->
-	<input class="table_btns" type="submit" onclick="window.location='index.jsp'"
-		value="Logout" />
+	<form class="table_btns" action="index.jsp">
+		<input class="table_btns" type="submit" value="Logout" />
+		<input type="hidden" name="source_page" value="table.jsp_logout"/>
+	</form>
 	<input class="table_btns" type="button" onclick="window.location='printTable.jsp'"
 		value="Drucken" />
 

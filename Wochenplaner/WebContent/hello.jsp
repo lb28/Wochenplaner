@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="style.css" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Hello World!</title>
+<title>Wochenplaner - Willkommen</title>
 </head>
 <body>
 	<%
@@ -35,6 +35,11 @@
 			if (Utilities.validatePassword(email, password)) {
 				User currentUser = Utilities.selectUser(email);
 				session.setAttribute("currentUserID", currentUser.getUser_id());
+				
+				//TODO include this line to skip the "hello" page and redirect to the table?
+				response.sendRedirect("table.jsp");
+				
+				
 	%>
 	<h3>
 		Hallo

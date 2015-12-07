@@ -344,30 +344,7 @@ public class DBConnection {
 	}
 
 	public static void main(String[] args) {
-		DBConnection dbc = new DBConnection();
+		
 	}
-	
-
-	//////////// MÜLL? /////////////
-
-	/**
-	 * for looking up the description of an event with a given entry
-	 * 
-	 * @param user_id
-	 * @param entry
-	 * @return the description of the entry
-	 */
-	/*
-	 * public String getDescription(int user_id, String entry) { Connection
-	 * connection = getConnection(); PreparedStatement pstmt;
-	 * 
-	 * try { pstmt = connection.prepareStatement(
-	 * "SELECT description FROM usertable_? WHERE entry = ?"); pstmt.setInt(1,
-	 * user_id); pstmt.setString(2, entry); ResultSet rs = pstmt.executeQuery();
-	 * //TODO nicht nicht fertig } catch (SQLException e) { e.printStackTrace();
-	 * return null } return null; }
-	 */
-
-	//////////// MÜLL ENDE /////////////
 
 }

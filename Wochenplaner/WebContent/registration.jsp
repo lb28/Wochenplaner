@@ -16,7 +16,7 @@
 
 <body>
 	
-	<h1>Wilkommen!</h1>
+	<h1>Willkommen!</h1>
 	<h2>Registrierung:</h2>
 	<form action="hello.jsp" method="post">
 		E-Mail : <input type="email" name="reg_email"/>

@@ -5,7 +5,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Raleway:200">
+<link rel="stylesheet"
+	href="http://fonts.googleapis.com/css?family=Raleway:200">
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,400italic,700,700italic,300italic'
 	rel='stylesheet' type='text/css' />
@@ -15,10 +16,20 @@
 <title>Wochenplaner - Startseite</title>
 </head>
 <%
-	//TODO source page table --> logout
-	
-	if (session.getAttribute("CurrentUserID") != null) {
-		response.sendRedirect("table.jsp");
+	if (session.getAttribute("currentUserID") != null) {
+		String source_page = request.getParameter("source_page");
+		if (source_page != null) {
+			//if source page is the logout button
+			if (source_page.equals("table.jsp_logout")) {
+				session.invalidate();
+				//why would you want to see the login page if you are logged in?
+			} else {
+				response.sendRedirect("table.jsp");
+			}
+			//this prevents users from going to the index page by entering the url while logged in
+		} else {
+			response.sendRedirect("table.jsp");
+		}
 	}
 %>
 
@@ -27,9 +38,9 @@
 	<h1>Willkommen!</h1>
 	<h2>Login:</h2>
 	<form action="hello.jsp" method="post">
-		E-Mail : <input type="email" name="login_email"/> Passwort: <input
-			type="password" name="login_pw"/> <input type="submit" name="submit"
-			value="OK" /> <input type="hidden" name="source_page"
+		E-Mail : <input type="email" name="login_email" /> Passwort: <input
+			type="password" name="login_pw" /> <input type="submit"
+			name="submit" value="OK" /> <input type="hidden" name="source_page"
 			value="index.jsp" />
 	</form>
 

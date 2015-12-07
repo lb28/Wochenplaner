@@ -90,7 +90,7 @@ input {
 	display: block;
 }
 
-input.table_btns {
+input.table_btns, form.table_btns {
 	display: inline;
 	margin-right: 0.2em;
 	margin-top: 1.8em;
