@@ -4,6 +4,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@page import="de.uulm.sopra.luisb.wochenplaner.util.Utilities"%>
 <%@page import="de.uulm.sopra.luisb.wochenplaner.db.UserTable"%>
+<%@page import="java.util.LinkedList" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -55,11 +56,24 @@
 	<%
 		}
 	%>
-	
+
+<%
+	LinkedList<String> uniqueEntries = Utilities.getUniqueEntries(currentUserID);
+
+%>
 	<!-- form for editing an entry -->
 	<form action="done.jsp" method="post">
-		Titel: <input type="text" name="edit_title" value="<%=entry%>"
-			autofocus="autofocus" /> Beschreibung: <input type="text"
+		<select id="selectEvent" onchange="selectionchange();" title="Hier kannst du aus einer Liste bestehender Veranstaltungen wählen">
+			<option value="new_event">neue Veranstaltung</option>
+		<%
+		for(int i=0; i<uniqueEntries.size(); i++) {
+		%>
+			<option value="<%=uniqueEntries.get(i)%>"><%=uniqueEntries.get(i)%></option>
+		<%} %>
+		</select>
+		Titel:  
+		<input type="text" name="edit_title" value="<%=entry%>"
+			autofocus="autofocus"/> Beschreibung: <input type="text"
 			name="edit_description" value="<%=description%>" /> <input
 			type="submit" name="submit" value="Speichern" /> <input
 			type="hidden" name="source_page" value="tabledata.jsp_edit" /> <input
@@ -77,10 +91,11 @@
 
 	<!-- form for editing an entry -->
 	<form action="done.jsp" method="post">
-		<input type="submit" name="submit" value="Alle Termine der Verantstaltung löschen" /> <input
-			type="hidden" name="source_page" value="tabledata.jsp_deleteAll" /> <input
-			type="hidden" name="day" value="<%=day%>" /> <input type="hidden"
-			name="hour" value="<%=hour%>" />
+		<input type="submit" name="submit"
+			value="Verantstaltung löschen" /> <input
+			type="hidden" name="source_page" value="tabledata.jsp_deleteAll" />
+		<input type="hidden" name="day" value="<%=day%>" /> <input
+			type="hidden" name="hour" value="<%=hour%>" />
 	</form>
 
 

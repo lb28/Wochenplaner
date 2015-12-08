@@ -77,13 +77,13 @@ h3 {
 	padding-right: 20%;
 }
 
-p, form, input, submit, td {
+p, form, input, submit, td, select {
 	font-size: 100%;
 	font-weight: 400;
 	color: #191818;
 }
 
-input {
+input, select {
 	margin-top: 0.2em;
 	margin-bottom: 1em;
 	padding-bottom: 0.2em;

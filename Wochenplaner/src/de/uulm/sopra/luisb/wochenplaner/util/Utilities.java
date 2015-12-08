@@ -65,7 +65,7 @@ public class Utilities {
 	}
 
 	/**
-	 * returns a LinkedList with all unique entries (e.g. the events)
+	 * returns an array with all unique entries (e.g. the events)
 	 */
 	public static LinkedList<String> getUniqueEntries(int user_id) {
 		UserTable userTable = getTable(user_id);
@@ -80,6 +80,7 @@ public class Utilities {
 				}
 			}
 		}
+		
 		return uniqueEntries;
 	}
 

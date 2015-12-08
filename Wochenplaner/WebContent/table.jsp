@@ -98,7 +98,7 @@
 					//loop over the columns
 							for (int day = 0; day < 7; day++) {
 				%><td class="table_data"
-					onclick="window.open('tabledata.jsp?cell=<%=day + ":" + hour%>', 'popup', 'width=450,height=400, scrollbars=no, toolbar=no, status=no, resizable=no, menubar=no, location=top, directories=no, top=50, left=50')"
+					onclick="window.open('tabledata.jsp?cell=<%=day + ":" + hour%>', 'popup', 'width=450,height=500, scrollbars=no, toolbar=no, status=no, resizable=no, menubar=no, location=top, directories=no, top=50, left=50')"
 					onmouseover="this.bgColor='#EEEEEE'"
 					onmouseout="this.bgColor='#FFFFFF'"
 					onmousedown="this.bgColor='#AAAAAA'"
