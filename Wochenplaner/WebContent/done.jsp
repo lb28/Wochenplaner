@@ -43,7 +43,7 @@
 					int hour = Integer.parseInt(request.getParameter("hour"));
 					String newEntry = request.getParameter("edit_title");
 					String newDescription = request.getParameter("edit_description");
-					UserTable userTable = Utilities.getTable(currentUserID);					
+					UserTable userTable = Utilities.getTable(currentUserID);
 					if (Utilities.updateEntry(currentUserID, day, hour, newEntry, newDescription) == false) {
 	%><h2>Fehler!</h2>
 	<p>Update fehlgeschlagen.</p>
