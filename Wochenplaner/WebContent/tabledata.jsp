@@ -4,7 +4,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@page import="de.uulm.sopra.luisb.wochenplaner.util.Utilities"%>
 <%@page import="de.uulm.sopra.luisb.wochenplaner.db.UserTable"%>
-<%@page import="java.util.LinkedList" %>
+<%@page import="java.util.LinkedList"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -22,42 +22,56 @@
 
 <body>
 
-<!-- puts the selected event in the form -->
-<script>
-function titlechange() {
-	var edit_title = document.getElementById('edit_title');
-	var e = document.getElementById("selectEvent");
-    var str = e.options[e.selectedIndex].value;
-	if (str === "new_event") {
-    	edit_title.disabled = false;
-    	edit_title.value = "";
-    } else {
-        edit_title.value = str;
-    }
-}
+	<!-- puts the selected event in the form -->
+	<script>
+		function titlechange() {
+			var edit_title = document.getElementById('edit_title');
+			var e = document.getElementById("selectEvent");
+			var str = e.options[e.selectedIndex].value;
+			if (str === "new_event") {
+				edit_title.disabled = false;
+				edit_title.value = "";
+			} else {
+				edit_title.value = str;
+			}
+		}
 
-function selectionchange() {
-	var edit_title = document.getElementById('edit_title');
-	var e = document.getElementById("selectEvent");
-	//TODO: change the selection when an existing event is typed in
-}
-</script>
+		function selectionchange() {
+			var edit_title = document.getElementById('edit_title');
+			var x = document.getElementById("selectEvent");
+			var index = 0;
+			for (i = 0; i < x.length; i++) {
+				if(x.options[i].text === edit_title.value) {
+					index = i;
+				}
+			}
+			x.selectedIndex = index;
+		}
+	</script>
 
-<script type="text/javascript">
-	function closeAndRefresh() {
-		opener.location.reload(true);
-		self.close();
-	}
-</script>
+	<script type="text/javascript">
+		function closeAndRefresh() {
+			opener.location.reload(true);
+			self.close();
+		}
+	</script>
 
 	<%
 		if (session.getAttribute("currentUserID") == null || request.getParameter("cell") == null) {
 	%>
 	<h2>Fehler, bitte geh zurück auf die Startseite</h2>
 	<p>(source: null)</p>
-	<input type="submit" onclick="closeAndRefresh();"
+	<%
+		if (request.getParameter("cell") == null) {
+	%>
+	<input type="submit" onclick="window.location='index.jsp'"
 		value="Zurück" />
 	<%
+		} else {
+	%>
+	<input type="submit" onclick="closeAndRefresh();" value="Zurück" />
+	<%
+		}
 		} else {
 			String[] source = request.getParameter("cell").split(":");
 			int day = Integer.parseInt(source[0]);
@@ -86,26 +100,28 @@ function selectionchange() {
 		}
 	%>
 
-<%
-	LinkedList<String> uniqueEntries = Utilities.getUniqueEntries(currentUserID);
-
-%>
+	<%
+		LinkedList<String> uniqueEntries = Utilities.getUniqueEntries(currentUserID);
+	%>
 	<!-- form for editing an entry -->
 	<form action="done.jsp" method="post">
-		<select id="selectEvent" onchange="titlechange();" title="Hier kannst du aus einer Liste bestehender Veranstaltungen wählen">
+		<select id="selectEvent" onchange="titlechange();"
+			title="Hier kannst du aus einer Liste bestehender Veranstaltungen wählen">
 			<option value="new_event">neue erstellen</option>
-		<%
-		//display all unique entries
-		for(int i=0; i<uniqueEntries.size(); i++) {
-		%>
-			<option value="<%=uniqueEntries.get(i)%>" <%if(uniqueEntries.get(i).equals(entry)){%> selected <%}%> >
-			<%=uniqueEntries.get(i)%>
+			<%
+				//display all unique entries
+					for (int i = 0; i < uniqueEntries.size(); i++) {
+			%>
+			<option value="<%=uniqueEntries.get(i)%>"
+				<%if (uniqueEntries.get(i).equals(entry)) {%> selected <%}%>>
+				<%=uniqueEntries.get(i)%>
 			</option>
-		<%} %>
-		</select>
-		Titel:  
-		<input type="text" id ="edit_title" name="edit_title" value="<%=entry%>" onchange="selectionchange();"
-			autofocus="autofocus"/> Beschreibung: <input type="text"
+			<%
+				}
+			%>
+		</select> Titel: <input type="text" id="edit_title" name="edit_title"
+			value="<%=entry%>" onkeyup="selectionchange();" onchange="selectionchange();"
+			autofocus="autofocus" /> Beschreibung: <input type="text"
 			name="edit_description" value="<%=description%>" /> <input
 			type="submit" name="submit" value="Speichern" /> <input
 			type="hidden" name="source_page" value="tabledata.jsp_edit" /> <input
@@ -123,45 +139,44 @@ function selectionchange() {
 
 	<!-- form for deleting all entries of an event -->
 	<form action="done.jsp" method="post">
-		<input type="submit" name="submit"
-			value="Verantstaltung löschen" /> <input
-			type="hidden" name="source_page" value="tabledata.jsp_deleteAll" />
-		<input type="hidden" name="day" value="<%=day%>" /> <input
-			type="hidden" name="hour" value="<%=hour%>" />
+		<input type="submit" name="submit" value="Verantstaltung löschen" />
+		<input type="hidden" name="source_page"
+			value="tabledata.jsp_deleteAll" /> <input type="hidden" name="day"
+			value="<%=day%>" /> <input type="hidden" name="hour"
+			value="<%=hour%>" />
 	</form>
-	
+
 	<!-- horizontal line for separation -->
 	<hr />
-	
-	<form action="moveEntry.jsp">
-	Termin verschieben:
 
-		<select>
-		<%
+	<form action="moveEntry.jsp">
+		Termin verschieben: <select>
+			<%
 				for (int d = 0; d < 7; d++) {
-		%>			<option value="d"><%=Utilities.getDay(d)%></option>
-		<%
-					}
-		%>
-		</select>
-		<select>
-		<%
-			for (int h = 0; h < 14; h++) {
-		%>
-					<option value="<%=h%>">
-					<% if (h + 7 < 10) {
-									out.print("0");
-								}
-								out.print(h + 7);
-					%>:00
-				</option>
+			%>
+			<option value="d"><%=Utilities.getDay(d)%></option>
+			<%
+				}
+			%>
+		</select> <select>
+			<%
+				for (int h = 0; h < 14; h++) {
+			%>
+			<option value="<%=h%>">
+				<%
+					if (h + 7 < 10) {
+								out.print("0");
+							}
+							out.print(h + 7);
+				%>:00
+			</option>
 			<%
 				}
 			%>
 		</select>
 	</form>
 
-	<hr/>
+	<hr />
 
 	<input type="button" onclick="window.close()" value="Abbrechen" />
 	<%
