@@ -93,7 +93,12 @@ public class Utilities {
 		DBConnection dbc = new DBConnection();
 		dbc.insert(user);
 	}
-
+	
+	public static boolean deleteUser(int id) {
+		DBConnection dbc = new DBConnection();
+		return dbc.deleteUser(id);
+	}
+	
 	public static UserTable getTable(int user_id) {
 		DBConnection dbc = new DBConnection();
 		return dbc.getTable(user_id);
@@ -120,7 +125,7 @@ public class Utilities {
 
 	// for testing
 	public static void main(String[] args) {
-		
+
 	}
 
 }

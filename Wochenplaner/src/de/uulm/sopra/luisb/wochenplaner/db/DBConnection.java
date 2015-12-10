@@ -44,7 +44,7 @@ public class DBConnection {
 		}
 	}
 
-	/*
+	/**
 	 * inserts user into the database
 	 * 
 	 */
@@ -75,11 +75,14 @@ public class DBConnection {
 		}
 
 	}
-
+	
+	/** creates a table for one individual user
+	 * @param user_id
+	 */
 	public void createTable(int user_id) {
 		Connection connection = getConnection();
 		String sql = "CREATE TABLE usertable_" + user_id
-				+ " (day INT NOT NULL, hour INT NOT NULL, entry VARCHAR(128) NULL, PRIMARY KEY (day, hour));";
+				+ " (day INT NOT NULL, hour INT NOT NULL, entry VARCHAR(128) NULL, description VARCHAR(128) NULL, PRIMARY KEY (day, hour));";
 		PreparedStatement pstmt;
 		try {
 			pstmt = connection.prepareStatement(sql);

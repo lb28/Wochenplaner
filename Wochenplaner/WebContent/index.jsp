@@ -35,6 +35,16 @@
 
 
 <body>
+
+<!-- soll ich das hier wirklich machen? (was wenn der link offline ist?) -->
+<!-- 
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha3.js"></script>
+<script>
+    var hash = CryptoJS.SHA3("Hallo");
+    alert(hash);
+</script>
+-->
+
 	<h1>Willkommen!</h1>
 	<h2>Login:</h2>
 	<form action="hello.jsp" method="post">
