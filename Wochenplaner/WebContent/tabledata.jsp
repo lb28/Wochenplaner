@@ -43,12 +43,19 @@ function selectionchange() {
 }
 </script>
 
+<script type="text/javascript">
+	function closeAndRefresh() {
+		opener.location.reload(true);
+		self.close();
+	}
+</script>
+
 	<%
 		if (session.getAttribute("currentUserID") == null || request.getParameter("cell") == null) {
 	%>
 	<h2>Fehler, bitte geh zurück auf die Startseite</h2>
 	<p>(source: null)</p>
-	<input type="submit" onclick="window.location='index.jsp'"
+	<input type="submit" onclick="closeAndRefresh();"
 		value="Zurück" />
 	<%
 		} else {
