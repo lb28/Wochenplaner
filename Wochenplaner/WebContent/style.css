@@ -95,3 +95,8 @@ input.table_btns, form.table_btns {
 	margin-right: 0.2em;
 	margin-top: 1.8em;
 }
+
+input.h_btns {
+	display: inline;
+	margin-right: 0.4em;
+}

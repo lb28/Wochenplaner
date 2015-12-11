@@ -96,17 +96,36 @@
 					UserTable userTable = Utilities.getTable(currentUserID);
 					String event = userTable.getEntry(day, hour);
 					if (Utilities.deleteAllEvents(currentUserID, event) == false) {
-	%><h2>Fehler!</h2>
-	<p>Löschen fehlgeschlagen.</p>
-	<input type="button" onclick="closeAndRefresh()"
-		value="Zum Wocheplaner" autofocus="autofocus" />
-	<%
-		} else {
-	%><h2>Änderung gespeichert</h2>
-	<input type="button" onclick="closeAndRefresh()"
-		value="Zum Wocheplaner" autofocus="autofocus" />
-	<%
-		}
+						%><h2>Fehler!</h2>
+						<p>Löschen fehlgeschlagen.</p>
+						<input type="button" onclick="closeAndRefresh()"
+							value="Zum Wocheplaner" autofocus="autofocus" />
+						<%
+					} else {
+						%><h2>Änderung gespeichert</h2>
+						<input type="button" onclick="closeAndRefresh()"
+							value="Zum Wocheplaner" autofocus="autofocus" />
+						<%
+					}
+				} else if (source_page.equals("moveEntry.jsp")) {
+					int day = Integer.parseInt(request.getParameter("day"));
+					int hour = Integer.parseInt(request.getParameter("hour"));
+					int newDay = Integer.parseInt(request.getParameter("newDay"));
+					int newHour = Integer.parseInt(request.getParameter("newHour"));
+					UserTable userTable = Utilities.getTable(currentUserID);
+					
+					if (Utilities.moveEntry(currentUserID, day, hour, newDay, newHour) == false) {
+						%><h2>Fehler!</h2>
+						<p>Verschieben fehlgeschlagen.</p>
+						<input type="button" onclick="closeAndRefresh()"
+							value="Zum Wocheplaner" autofocus="autofocus" />
+						<%
+					} else {
+						%><h2>Änderung gespeichert</h2>
+						<input type="button" onclick="closeAndRefresh()"
+							value="Zum Wocheplaner" autofocus="autofocus" />
+						<%
+					}
 				}
 			}
 		}

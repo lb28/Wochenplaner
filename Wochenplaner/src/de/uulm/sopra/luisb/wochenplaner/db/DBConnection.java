@@ -147,6 +147,38 @@ public class DBConnection {
 			return false;
 		}
 	}
+	
+	public boolean moveEntry(int user_id, int day, int hour, int newDay, int newHour) {
+		Connection connection = getConnection();
+		PreparedStatement pstmt;
+		
+		try {
+			pstmt = connection.prepareStatement("SELECT entry, description FROM usertable_? WHERE day = ? AND hour = ?;");
+			pstmt.setInt(1, user_id);
+			pstmt.setInt(2, day);
+			pstmt.setInt(3, hour);
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				String entry = rs.getString("entry");
+				String description = rs.getString("description");
+				if (updateEntry(user_id, newDay, newHour, entry, description)) {
+					if (updateEntry(user_id, day, hour, "", "")) {
+						//here everything went well (copy the entry and delete the old one)
+						return true;
+					}
+				}
+			}
+			
+			//if something went wrong
+			return false;
+		} catch (SQLException e) {
+			//if something went horribly wrong
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
 
 	public UserTable getTable(int user_id) {
 		Connection connection = getConnection();

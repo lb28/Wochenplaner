@@ -41,7 +41,7 @@
 			var x = document.getElementById("selectEvent");
 			var index = 0;
 			for (i = 0; i < x.length; i++) {
-				if(x.options[i].text === edit_title.value) {
+				if (x.options[i].text === edit_title.value) {
 					index = i;
 				}
 			}
@@ -105,9 +105,10 @@
 	%>
 	<!-- form for editing an entry -->
 	<form action="done.jsp" method="post">
+	
 		<select id="selectEvent" onchange="titlechange();"
 			title="Hier kannst du aus einer Liste bestehender Veranstaltungen wählen">
-			<option value="new_event">neue erstellen</option>
+			<option value="new_event">neue Veranstaltung</option>
 			<%
 				//display all unique entries
 					for (int i = 0; i < uniqueEntries.size(); i++) {
@@ -120,10 +121,10 @@
 				}
 			%>
 		</select> Titel: <input type="text" id="edit_title" name="edit_title"
-			value="<%=entry%>" onkeyup="selectionchange();" onchange="selectionchange();"
-			autofocus="autofocus" /> Beschreibung: <input type="text"
-			name="edit_description" value="<%=description%>" /> <input
-			type="submit" name="submit" value="Speichern" /> <input
+			value="<%=entry%>" onkeyup="selectionchange();"
+			onchange="selectionchange();" autofocus="autofocus" /> Beschreibung:
+		<input type="text" name="edit_description" value="<%=description%>" />
+		<input type="submit" name="submit" value="Speichern" /> <input
 			type="hidden" name="source_page" value="tabledata.jsp_edit" /> <input
 			type="hidden" name="day" value="<%=day%>" /> <input type="hidden"
 			name="hour" value="<%=hour%>" />
@@ -147,18 +148,21 @@
 	</form>
 
 	<!-- horizontal line for separation -->
-	<hr />
+	<hr />		
 
-	<form action="moveEntry.jsp">
-		Termin verschieben: <select>
+	<form action="moveEntry.jsp" id="moveEntry">
+	
+	Termin verschieben: <select name="newDay">
 			<%
 				for (int d = 0; d < 7; d++) {
 			%>
-			<option value="d"><%=Utilities.getDay(d)%></option>
+			<option value="<%=d%>"><%=Utilities.getDay(d)%></option>
 			<%
 				}
 			%>
-		</select> <select>
+		</select> 
+		
+		<select name="newHour">
 			<%
 				for (int h = 0; h < 14; h++) {
 			%>
@@ -174,7 +178,14 @@
 				}
 			%>
 		</select>
+	
+		<input type="hidden" name="source_page" value="tabledata.jsp_move" />
+		<input type="hidden" name="day" value="<%=day%>" />
+		<input type="hidden" name="hour" value="<%=hour%>" />
+		<input type="submit" name="submit" value="Verschieben" />
 	</form>
+	
+		
 
 	<hr />
 

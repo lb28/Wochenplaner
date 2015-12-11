@@ -118,6 +118,11 @@ public class Utilities {
 		return dbc.updateEntry(user_id, day, hour, newEntry, newDescription);
 	}
 	
+	public static boolean moveEntry(int user_id, int day, int hour, int newDay, int newHour) {
+		DBConnection dbc = new DBConnection();
+		return dbc.moveEntry (user_id, day, hour, newDay, newHour);
+	}
+	
 	public static boolean deleteAllEvents(int user_id, String event) {
 		DBConnection dbc = new DBConnection();
 		return dbc.deleteAllEvents(user_id, event);
