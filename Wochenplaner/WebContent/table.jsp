@@ -59,13 +59,14 @@
 		</span>
 	</h3>
 	<!-- 'menu' buttons -->
+	<div id="table_btns_group">
 	<form class="table_btns" action="index.jsp">
-		<input class="table_btns" type="submit" value="Logout" /> <input
-			type="hidden" name="source_page" value="table.jsp_logout" />
+		<input class="table_btns" type="submit" value="Logout" />
+		<input type="hidden" name="source_page" value="table.jsp_logout" />
 	</form>
-	<input class="table_btns" type="button"
-		onclick="window.location='printTable.jsp'" value="Drucken" />
-
+	<input class="table_btns" type="button" onclick="window.location='printTable.jsp'" value="Drucken (A4)" />
+	<input class="table_btns" type="button" onclick="window.location='printTable_small.jsp'" value="Drucken (klein)" />
+	</div>
 
 	<!-- table body is created with for loops -->
 	<table>

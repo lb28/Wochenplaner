@@ -26,8 +26,20 @@ table {
 
 table.printTable {
 	width: 1500px;
-	height: 700px;
+	height: 900px;
+	border-collapse: collapse;
+	border: 1px solid #cbcbcb;
+	font-size: 130%;
 }
+
+
+table.printTable_small {
+	font-size: 50%;
+	width: 500px;
+	height: 10px;
+	min-height: 0px;
+}
+
 
 th, td.time {
 	text-align: center;
@@ -75,6 +87,7 @@ h3 {
 #rightheader {
 	float: right;
 	padding-right: 20%;
+	margin-top: 0em;
 }
 
 p, form, input, submit, td, select {
@@ -88,12 +101,19 @@ input, select {
 	margin-bottom: 1em;
 	padding-bottom: 0.2em;
 	display: block;
+	width: 200px;
 }
 
 input.table_btns, form.table_btns {
 	display: inline;
 	margin-right: 0.2em;
+	margin-top: 0em;
+	width: 150px;
+}
+
+#table_btns_group {
 	margin-top: 1.8em;
+	margin-bottom: 0em;
 }
 
 input.h_btns {

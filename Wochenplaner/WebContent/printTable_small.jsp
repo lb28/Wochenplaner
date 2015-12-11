@@ -59,7 +59,7 @@
 	
 
 	<!-- table body is created with for loops -->
-	<table class="printTable">
+	<table class="printTable_small">
 		<thead>
 			<tr>
 				<th></th>
@@ -88,16 +88,11 @@
 				<%
 					//loop over the columns
 							for (int day = 0; day < 7; day++) {
-				%><td class="table_data"
-					onclick="window.open('tabledata.jsp?cell=<%=day + ":" + hour%>', 'popup', 'width=450,height=400, scrollbars=no, toolbar=no, status=no, resizable=no, menubar=no, location=top, directories=no, top=50, left=50')"
-					onmouseover="this.bgColor='#EEEEEE'"
-					onmouseout="this.bgColor='#FFFFFF'"
-					onmousedown="this.bgColor='#AAAAAA'"
-					onmouseup="this.bgColor='#EEEEEE'">
+				%><td class="table_data">
 					<%
 						if (currentUserTable != null) {
-										out.println(currentUserTable.getEntry(day, hour));
-									}
+							out.println(currentUserTable.getEntry(day, hour));
+						}
 					%>
 				</td>
 				<%

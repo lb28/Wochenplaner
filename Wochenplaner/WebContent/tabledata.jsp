@@ -146,46 +146,51 @@
 			value="<%=day%>" /> <input type="hidden" name="hour"
 			value="<%=hour%>" />
 	</form>
-
-	<!-- horizontal line for separation -->
-	<hr />		
-
-	<form action="moveEntry.jsp" id="moveEntry">
 	
-	Termin verschieben: <select name="newDay">
-			<%
-				for (int d = 0; d < 7; d++) {
-			%>
-			<option value="<%=d%>"><%=Utilities.getDay(d)%></option>
-			<%
-				}
-			%>
-		</select> 
+	<%
+	if(!(currentUserTable.getEntry(day, hour).equals(""))) {  
+	%>
+		<!-- horizontal line for separation -->
+		<hr />		
+	
+		<form action="moveEntry.jsp" id="moveEntry">
 		
-		<select name="newHour">
-			<%
-				for (int h = 0; h < 14; h++) {
-			%>
-			<option value="<%=h%>">
+		Termin verschieben: <select name="newDay">
 				<%
-					if (h + 7 < 10) {
-								out.print("0");
-							}
-							out.print(h + 7);
-				%>:00
-			</option>
-			<%
-				}
-			%>
-		</select>
-	
-		<input type="hidden" name="source_page" value="tabledata.jsp_move" />
-		<input type="hidden" name="day" value="<%=day%>" />
-		<input type="hidden" name="hour" value="<%=hour%>" />
-		<input type="submit" name="submit" value="Verschieben" />
-	</form>
-	
+					for (int d = 0; d < 7; d++) {
+				%>
+				<option value="<%=d%>"><%=Utilities.getDay(d)%></option>
+				<%
+					}
+				%>
+			</select> 
+			
+			<select name="newHour">
+				<%
+					for (int h = 0; h < 14; h++) {
+				%>
+				<option value="<%=h%>">
+					<%
+						if (h + 7 < 10) {
+									out.print("0");
+								}
+								out.print(h + 7);
+					%>:00
+				</option>
+				<%
+					}
+				%>
+			</select>
 		
+			<input type="hidden" name="source_page" value="tabledata.jsp_move" />
+			<input type="hidden" name="day" value="<%=day%>" />
+			<input type="hidden" name="hour" value="<%=hour%>" />
+			<input type="submit" name="submit" value="Verschieben" />
+		</form>
+		
+	<%
+	}
+	%>
 
 	<hr />
 
