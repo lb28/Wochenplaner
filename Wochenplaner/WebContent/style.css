@@ -55,13 +55,13 @@ th, td.time {
 td.table_data {
 	text-align: center;
 	border: 1px solid black;
-	/*	padding: 0.2em; */
 	width: 10%;
 	max-width: 150px;
+	min-width: 40px;
 	cursor: pointer;
 	word-wrap: break-word;
 	color: #191818;
-	padding: 1px;
+	padding: 3px;
 }
 
 h1 {

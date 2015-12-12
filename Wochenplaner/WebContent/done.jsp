@@ -48,7 +48,7 @@
 	%><h2>Fehler!</h2>
 	<p>Update fehlgeschlagen.</p>
 	<input type="button" onclick="closeAndRefresh()"
-		value="Zum Wocheplaner" autofocus="autofocus" />
+		value="Zum Wochenplaner" autofocus="autofocus" />
 	<%
 		} else {
 						if (userTable.contains(newEntry)) {
@@ -69,7 +69,7 @@
 		} else {
 	%><h2>Änderung gespeichert</h2>
 	<input type="button" onclick="closeAndRefresh()"
-		value="Zum Wocheplaner" autofocus="autofocus" />
+		value="Zum Wochenplaner" autofocus="autofocus" />
 	<%
 		}
 					}
@@ -81,13 +81,13 @@
 	%><h2>Fehler!</h2>
 	<p>Löschen fehlgeschlagen.</p>
 	<input type="button" onclick="closeAndRefresh()"
-		value="Zum Wocheplaner" autofocus="autofocus" />
+		value="Zum Wochenplaner" autofocus="autofocus" />
 	
 	<%
 		} else {
 	%><h2>Änderung gespeichert</h2>
 	<input type="button" onclick="closeAndRefresh()"
-		value="Zum Wocheplaner" autofocus="autofocus" />
+		value="Zum Wochenplaner" autofocus="autofocus" />
 	<%
 		}
 				} else if (source_page.equals("tabledata.jsp_deleteAll")) {
@@ -99,12 +99,12 @@
 						%><h2>Fehler!</h2>
 						<p>Löschen fehlgeschlagen.</p>
 						<input type="button" onclick="closeAndRefresh()"
-							value="Zum Wocheplaner" autofocus="autofocus" />
+							value="Zum Wochenplaner" autofocus="autofocus" />
 						<%
 					} else {
 						%><h2>Änderung gespeichert</h2>
 						<input type="button" onclick="closeAndRefresh()"
-							value="Zum Wocheplaner" autofocus="autofocus" />
+							value="Zum Wochenplaner" autofocus="autofocus" />
 						<%
 					}
 				} else if (source_page.equals("moveEntry.jsp")) {
@@ -118,12 +118,12 @@
 						%><h2>Fehler!</h2>
 						<p>Verschieben fehlgeschlagen.</p>
 						<input type="button" onclick="closeAndRefresh()"
-							value="Zum Wocheplaner" autofocus="autofocus" />
+							value="Zum Wochenplaner" autofocus="autofocus" />
 						<%
 					} else {
 						%><h2>Änderung gespeichert</h2>
 						<input type="button" onclick="closeAndRefresh()"
-							value="Zum Wocheplaner" autofocus="autofocus" />
+							value="Zum Wochenplaner" autofocus="autofocus" />
 						<%
 					}
 				}

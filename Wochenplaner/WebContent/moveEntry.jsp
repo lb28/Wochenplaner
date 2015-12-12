@@ -6,7 +6,7 @@
 <%@page import="de.uulm.sopra.luisb.wochenplaner.db.UserTable"%>
 <%@page import="java.util.LinkedList"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <link rel="stylesheet"
@@ -31,20 +31,21 @@
 
 	<%
 		if (session.getAttribute("currentUserID") == null || request.getParameter("source_page") == null) {
-	%>
-	<h2>Fehler, bitte geh zurück auf die Startseite</h2>
-	<p>(source: null)</p>
-	<%
-		if (request.getParameter("source_page") == null) {
-	%>
-	<input type="submit" onclick="window.location='index.jsp'"
-		value="Zurück" />
-	<%
-		} else {
-	%>
-	<input type="submit" onclick="closeAndRefresh();" value="Zurück" />
-	<%
-		}
+			%>
+			<h2>Fehler, bitte geh zurück auf die Startseite</h2>
+			<%
+			if (request.getParameter("source_page") == null) {
+				%>
+				<p>(source: null)</p>
+				<input type="submit" onclick="window.location='index.jsp'"
+					value="Zurück" />
+				<%
+			} else {
+				%>
+				<p>(id: null)</p>
+				<input type="submit" onclick="closeAndRefresh();" value="Zurück" />
+				<%
+			}
 		} else {
 			int newDay = Integer.parseInt(request.getParameter("newDay"));
 			int newHour = Integer.parseInt(request.getParameter("newHour"));
@@ -61,12 +62,12 @@
 						%><h2>Fehler!</h2>
 						<p>Verschieben fehlgeschlagen.</p>
 						<input type="button" onclick="closeAndRefresh()"
-							value="Zum Wocheplaner" autofocus="autofocus" />
+							value="Zum Wochenplaner" autofocus="autofocus" />
 						<%
 					} else {
 						%><h2>Änderung gespeichert</h2>
 						<input type="button" onclick="closeAndRefresh()"
-							value="Zum Wocheplaner" autofocus="autofocus" />
+							value="Zum Wochenplaner" autofocus="autofocus" />
 						<%
 					}
 					
@@ -79,7 +80,7 @@
 					<p>
 						nach:
 						<%=newDayString%>,
-						<%=hour + 7%>
+						<%=newHour + 7%>
 						Uhr
 					</p>
 					

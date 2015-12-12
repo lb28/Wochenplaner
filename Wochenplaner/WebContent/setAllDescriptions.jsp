@@ -58,7 +58,7 @@
 	<h2>Änderung für alle Termine gespeichert</h2>
 	<p>(<%=updateCount%> Einträge wurden überschrieben)</p>
 	<input type="button" onclick="closeAndRefresh()"
-		value="Zum Wocheplaner" autofocus="autofocus" />
+		value="Zum Wochenplaner" autofocus="autofocus" />
 	<%
 		}
 				}

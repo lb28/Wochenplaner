@@ -6,7 +6,7 @@
 <%@page import="de.uulm.sopra.luisb.wochenplaner.db.UserTable"%>
 <%@page import="java.util.LinkedList"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <link rel="stylesheet"
@@ -140,7 +140,7 @@
 
 	<!-- form for deleting all entries of an event -->
 	<form action="done.jsp" method="post">
-		<input type="submit" name="submit" value="Verantstaltung löschen" />
+		<input type="submit" name="submit" value="Veranstaltung löschen" />
 		<input type="hidden" name="source_page"
 			value="tabledata.jsp_deleteAll" /> <input type="hidden" name="day"
 			value="<%=day%>" /> <input type="hidden" name="hour"
