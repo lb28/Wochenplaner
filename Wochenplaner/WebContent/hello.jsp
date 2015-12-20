@@ -39,20 +39,19 @@
 				//TODO include this line to skip the "hello" page and redirect to the table?
 				response.sendRedirect("table.jsp");
 				
-				
-	%>
-	<h3>
-		Hallo
-		<%=email%>,
-		willkommen bei deinem Wochenplaner!
-	</h3>
-
-	<form action="table.jsp" method="post">
-		<input type="submit" name="submit" value="Zum Wochenplaner" /> <input
-			type="hidden" name="source_page" value="hello.jsp" />
-	</form>
-
-	<%
+				%>
+				<h3>
+					Hallo
+					<%=email%>,
+					willkommen bei deinem Wochenplaner!
+				</h3>
+			
+				<form action="table.jsp" method="post">
+					<input type="submit" name="submit" value="Zum Wochenplaner" /> <input
+						type="hidden" name="source_page" value="hello.jsp" />
+				</form>
+			
+				<%
 		} else {
 	%>
 	<h2>Falsche E-Mail-Adresse oder falsches Passwort</h2>

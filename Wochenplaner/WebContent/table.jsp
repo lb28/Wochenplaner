@@ -19,7 +19,7 @@
 <title>Wochenplaner</title>
 </head>
 <%
-	//caching prevention (setting these as meta tags does not work)
+	//caching prevention (setting these in meta tags does not work)
 	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 	response.setHeader("Pragma", "no-cache");
 	response.setDateHeader("Expires", 0);
@@ -68,7 +68,7 @@
 	<input class="table_btns" type="button" onclick="window.location='printTable_small.jsp'" value="Drucken (klein)" />
 	</div>
 
-	<!-- table body is created with for loops -->
+	<!-- table body is created with for-loops -->
 	<table>
 		<thead>
 			<tr>
