@@ -26,6 +26,10 @@
 	}
 </script>
 
+
+<!-- this page serves as a handler for many different forms throughout the application -->
+
+
 <body>
 
 	<%

@@ -148,6 +148,16 @@ public class DBConnection {
 		}
 	}
 	
+	/**
+	 * moves an entry by first copying it to the new location, then deleting it
+	 * 
+	 * @param user_id
+	 * @param day
+	 * @param hour
+	 * @param newDay
+	 * @param newHour
+	 * @return true if successful, false otherwise
+	 */
 	public boolean moveEntry(int user_id, int day, int hour, int newDay, int newHour) {
 		Connection connection = getConnection();
 		PreparedStatement pstmt;
@@ -180,6 +190,12 @@ public class DBConnection {
 		
 	}
 
+	/**
+	 * returns a UserTable for a given id
+	 * 
+	 * @param user_id
+	 * @return
+	 */
 	public UserTable getTable(int user_id) {
 		Connection connection = getConnection();
 		String sql = "SELECT * FROM usertable_" + user_id + ";";
@@ -210,6 +226,12 @@ public class DBConnection {
 		}
 	}
 
+	/**
+	 * returns a User by looking for the given id
+	 * 
+	 * @param user_id
+	 * @return
+	 */
 	public User selectUser(int user_id) {
 		User user = null;
 		String email;
@@ -238,6 +260,13 @@ public class DBConnection {
 		return user;
 	}
 	
+	
+	/**
+	 * returns a user by looking for the given email
+	 * 
+	 * @param email
+	 * @return
+	 */
 	public User selectUser(String email) {
 		User user = null;
 		int id;
@@ -326,7 +355,14 @@ public class DBConnection {
 			return null;
 		}
 	}
-
+	
+	/**
+	 * deletes all events that share a given title
+	 * 
+	 * @param user_id
+	 * @param event
+	 * @return
+	 */
 	public boolean deleteAllEvents(int user_id, String event) {
 		Connection connection = getConnection();
 		PreparedStatement pstmt;

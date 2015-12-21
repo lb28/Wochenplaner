@@ -13,6 +13,7 @@ import de.uulm.sopra.luisb.wochenplaner.db.UserTable;
 
 public class Utilities {
 
+	//validation already happens on the jsp (html5 input type email), but this validates again
 	public static boolean isValidEmailAddress(String email) {
 		boolean result = true;
 		try {
@@ -24,6 +25,7 @@ public class Utilities {
 		return result;
 	}
 
+	//for verifying if the user entered correct data in the registration form
 	public static boolean isValidAccount(String email, String pw1, String pw2) {
 		if (pw1.equals(pw2) && isValidEmailAddress(email)) {
 			return true;
@@ -31,7 +33,8 @@ public class Utilities {
 
 		return false;
 	}
-
+	
+	//validates a password using the PasswordHash class
 	public static boolean validatePassword(String email, String password) {
 		DBConnection dbc = new DBConnection();
 		boolean isValid = false;
