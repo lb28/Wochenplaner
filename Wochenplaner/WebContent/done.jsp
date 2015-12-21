@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
+<%@page import="de.uulm.sopra.luisb.wochenplaner.db.User"%>
 <%@page import="de.uulm.sopra.luisb.wochenplaner.db.UserTable"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -125,6 +126,23 @@
 						<input type="button" onclick="closeAndRefresh()"
 							value="Zum Wochenplaner" autofocus="autofocus" />
 						<%
+					}
+				} else if (source_page.equals("deleteAccount.jsp")) {
+					User currentUser = Utilities.selectUser(currentUserID);
+					String email = currentUser.getUser_email();
+					String password = request.getParameter("delete_pw");
+					if (Utilities.validatePassword(email, password)) {
+						if (Utilities.deleteUser(currentUserID) == false) {
+							%><h2>Fehler!</h2>
+							<p>Löschen fehlgeschlagen.</p>
+							<input type="button" onclick="window.location='table.jsp'" value="Zum Wochenplaner"/>
+							<%
+						} else {
+							session.invalidate();
+							%><h3>Account erfolgreich gelöscht.</h3>
+							<input type="button" onclick="window.location='index.jsp'" value="Zur Startseite" />
+							<%
+						}
 					}
 				}
 			}

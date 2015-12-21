@@ -88,6 +88,11 @@ public class Utilities {
 		DBConnection dbc = new DBConnection();
 		return dbc.selectUser(email);
 	}
+	
+	public static User selectUser(int user_id) {
+		DBConnection dbc = new DBConnection();
+		return dbc.selectUser(user_id);
+	}
 
 	public static void insertUser(User user) {
 		DBConnection dbc = new DBConnection();

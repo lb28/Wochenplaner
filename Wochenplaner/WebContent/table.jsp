@@ -38,7 +38,7 @@
 %>
 
 <!-- displays the clock String on the top -->
-<script language="javascript">
+<script>
 	var d = new Date();
 	setInterval(clock, 1000);
 	var counter = 0;
@@ -48,7 +48,6 @@
 				.toLocaleString());
 	}
 </script>
-
 
 <body>
 	<h3 id="rightheader">
@@ -66,6 +65,7 @@
 	</form>
 	<input class="table_btns" type="button" onclick="window.location='printTable.jsp'" value="Drucken (A4)" />
 	<input class="table_btns" type="button" onclick="window.location='printTable_small.jsp'" value="Drucken (klein)" />
+	<input class="table_btns" type="button" onclick="window.location='deleteAccount.jsp'" value="Account löschen"/>
 	</div>
 
 	<!-- table body is created with for-loops -->

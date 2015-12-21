@@ -107,7 +107,7 @@
 	<form action="done.jsp" method="post">
 	
 		<select id="selectEvent" onchange="titlechange();"
-			title="Hier kannst du aus einer Liste bestehender Veranstaltungen wählen">
+			title="Hier können Sie aus einer Liste bestehender Veranstaltungen wählen">
 			<option value="new_event">neue Veranstaltung</option>
 			<%
 				//display all unique entries
