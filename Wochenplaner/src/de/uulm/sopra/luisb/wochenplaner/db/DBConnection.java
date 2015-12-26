@@ -1,6 +1,10 @@
 package de.uulm.sopra.luisb.wochenplaner.db;
 
 import java.sql.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author Luis Beaucamp
@@ -295,6 +299,40 @@ public class DBConnection {
 
 		return user;
 	}
+	
+	//TODO experimental (for admin settings)
+	public LinkedList<User> getAllUsers() {
+		User user = null;
+		LinkedList<User> users = new LinkedList<User>();
+		int id;
+		String pwHash;
+		String email;
+		Connection connection = getConnection();		
+		PreparedStatement pstmt;
+
+		try {
+			pstmt = connection.prepareStatement("SELECT * FROM user WHERE user_email != 'luis.beaucamp@gmail.com'");
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				id = rs.getInt("user_id");
+				email = rs.getString("user_email");
+				pwHash = rs.getString("user_pwHash");
+
+				user = new User(id, email, pwHash);
+				users.add(user);
+			}
+			//TODO Collections.sort(users) not working?
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			closeConnection(connection);
+		}
+
+		return users;
+	}
+	
 
 	/**
 	 * deletes a user from the user table and drops his week table

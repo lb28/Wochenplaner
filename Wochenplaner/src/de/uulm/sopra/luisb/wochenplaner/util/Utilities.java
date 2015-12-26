@@ -2,7 +2,6 @@ package de.uulm.sopra.luisb.wochenplaner.util;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.Collections;
 import java.util.LinkedList;
 
 import javax.mail.internet.*;
@@ -95,6 +94,11 @@ public class Utilities {
 	public static User selectUser(int user_id) {
 		DBConnection dbc = new DBConnection();
 		return dbc.selectUser(user_id);
+	}
+	
+	public static LinkedList<User> getAllUsers() {
+		DBConnection dbc = new DBConnection();
+		return dbc.getAllUsers();
 	}
 
 	public static void insertUser(User user) {

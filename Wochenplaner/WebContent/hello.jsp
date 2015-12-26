@@ -26,7 +26,7 @@
 		if (source_page == null) {
 			response.sendRedirect("index.jsp");
 
-		//check if the source is the login page
+		// check if the source is the login page
 		} else if (source_page.equals("index.jsp")) {
 
 			String email = request.getParameter("login_email");
@@ -36,7 +36,8 @@
 				User currentUser = Utilities.selectUser(email);
 				session.setAttribute("currentUserID", currentUser.getUser_id());
 				
-				//TODO include this line to skip the "hello" page and redirect to the table?
+				// this skips the hello page if the user is logged in
+				// it will only show if the login was unsuccessful
 				response.sendRedirect("table.jsp");
 				
 				%>

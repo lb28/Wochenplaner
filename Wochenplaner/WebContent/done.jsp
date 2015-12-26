@@ -147,6 +147,11 @@
 							<input type="button" onclick="window.location='index.jsp'" value="Zur Startseite" />
 							<%
 						}
+					} else {
+						%><h2>Fehler!</h2>
+						<p>Löschen fehlgeschlagen.</p>
+						<input type="button" onclick="window.location='table.jsp'" value="Zum Wochenplaner"/>
+						<%
 					}
 				}
 			}
