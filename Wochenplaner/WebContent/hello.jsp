@@ -8,7 +8,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Raleway:200">
+<link rel="stylesheet"
+	href="http://fonts.googleapis.com/css?family=Raleway:200">
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,400italic,700,700italic,300italic'
 	rel='stylesheet' type='text/css' />
@@ -18,86 +19,25 @@
 <title>Wochenplaner - Willkommen</title>
 </head>
 <body>
-	<%
-		// first, determine if the user came from the reg page or login page
-		String source_page = request.getParameter("source_page");
+		<%
+		String source_page = (String)request.getAttribute("source_page");
 
 		//check if there is a source param at all (there should be)
 		if (source_page == null) {
 			response.sendRedirect("index.jsp");
-
-		// check if the source is the login page
-		} else if (source_page.equals("index.jsp")) {
-
-			String email = request.getParameter("login_email");
-			String password = request.getParameter("login_pw");
-			int currentUserID = 0;
-			if (Utilities.validatePassword(email, password)) {
-				User currentUser = Utilities.selectUser(email);
-				session.setAttribute("currentUserID", currentUser.getUser_id());
-				
-				// this skips the hello page if the user is logged in
-				// it will only show if the login was unsuccessful
-				response.sendRedirect("table.jsp");
-				
-				%>
-				<h3>
-					Hallo
-					<%=email%>,
-					willkommen bei deinem Wochenplaner!
-				</h3>
 			
-				<form action="table.jsp" method="post">
-					<input type="submit" name="submit" value="Zum Wochenplaner" /> <input
-						type="hidden" name="source_page" value="hello.jsp" />
-				</form>
-			
-				<%
+		// check if the source is the Login Servlet
+		} else if (source_page.equals("RegistrationServlet")) {
+			String email = (String) session.getAttribute("email");
+			%>
+			<h2>Hallo <%=email%>, du bist jetzt registriert!</h2>
+			<input type="button" onclick="window.location='index.jsp'" value="Zum Login" />
+			<%
 		} else {
-	%>
-	<h2>Falsche E-Mail-Adresse oder falsches Passwort</h2>
-	<%
+			session.setAttribute("errorMessage", "(unknown source: "+source_page+")");
+			response.sendRedirect("error.jsp");
 		}
-			//check if the source is the registration page
-		} else if (source_page.equals("registration.jsp")) {
-			String email = request.getParameter("reg_email");
-			String pw1 = request.getParameter("reg_pw1");
-			String pw2 = request.getParameter("reg_pw2");
-
-			if (email != null && pw1 != null && pw2 != null && email.length() > 0 && pw1.length() > 0
-					&& pw2.length() > 0) {
-				if (Utilities.isValidAccount(email, pw1, pw2)) {
-					User user = new User(email, pw1);
-					Utilities.insertUser(user);
-	%>
-	<h2>
-		Hallo
-		<%=email%>, Du bist jetzt registriert!
-	</h2>
-
-	<input type="button" onclick="window.location='index.jsp'"
-		value="Zum Login" />
-	<%
-		} else {
-	%>
-	<h2>Gib eine korrekte E-Mail ein!</h2>
-	<%
-		}
-			} else {
-	%>
-	<h2>Gib alle Daten ein!</h2>
-	<%
-		}
-		} else {
-	%>
-	<h2>Fehler, bitte geh zurück auf die Startseite</h2>
-	<p>(unknown source)</p>
-	<%
-		}
-	%>
-
-	<input type="button" onclick="window.location='index.jsp'"
-		value="Zurück" />
+		%>
 
 </body>
 </html>

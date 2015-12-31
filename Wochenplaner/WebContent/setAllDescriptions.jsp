@@ -28,39 +28,33 @@
 <body>
 
 	<%
-		String source_page = request.getParameter("source_page");
 
 		if (session.getAttribute("currentUserID") == null) {
 			response.sendRedirect("index.jsp");
 		} else {
-			int currentUserID = (Integer) session.getAttribute("currentUserID");
-
+			String source_page = (String) request.getAttribute("source_page");
 			if (source_page == null) {
-				response.sendRedirect("table.jsp");
+				session.setAttribute("errorMessage", "(setAllDescriptions.jsp-source:null)");
+				response.sendRedirect("error.jsp");
 			} else {
-				if (source_page.equals("done.jsp_setAllDescriptions")) {
-					String entry = request.getParameter("entry");
-					String newDescription = request.getParameter("description");
-					
-/* 					// debugging
-					System.out.println("Entry: \""+entry+"\" ");
-					System.out.println("Description: \""+newDescription+"\" ");
- */					
-					int updateCount = Utilities.updateAll(currentUserID, entry, newDescription);
-					
-					if (updateCount == -1) {
-	%>
-	<h2>Fehler!</h2>
-	<p>Update fehlgeschlagen.</p>
-	<%
-		} else {
-	%>
-	<h2>Änderung für alle Termine gespeichert</h2>
-	<p>(<%=updateCount%> Einträge wurden überschrieben)</p>
-	<input type="button" onclick="closeAndRefresh()"
-		value="Zum Wochenplaner" autofocus="autofocus" />
-	<%
-		}
+				if (source_page.equals("DoneServlet")) {
+					String newEntry = request.getParameter("edit_title");
+					String newDescription = request.getParameter("edit_description");
+					%>
+					<h2>Änderung gespeichert</h2>
+					<p>
+					Wollen Sie die neue Beschreibung für die bereits
+					gespeicherten Termine
+					von "<%=newEntry%>" übernehmen?
+					</p>
+					<form action="DoneServlet" method="post">
+						<input type="submit" name="submit" value="Ja" />
+						<input type="hidden" name="source_page" value="setAllDescriptions.jsp" />
+						<input type="hidden" name="entry" value="<%=newEntry%>" />
+						<input type="hidden" name="description" value="<%=newDescription%>" />
+					</form>
+					<input type="button" value="Nein" onclick="closeAndRefresh()" />
+					<%
 				}
 			}
 		}

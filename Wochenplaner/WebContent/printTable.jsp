@@ -18,100 +18,98 @@
 <title>Wochenplaner</title>
 </head>
 <%
-	UserTable currentUserTable = null;
-
 	if (session.getAttribute("currentUserID") == null) {
 		response.sendRedirect("index.jsp");
-
 	} else {
-		int currentUserID = (Integer) session.getAttribute("currentUserID");
-		currentUserTable = Utilities.getTable(currentUserID);
-%>
-
-<!-- displays the clock String on the top -->
-<script language="javascript">
-	var d = new Date();
-	setInterval(clock, 1000);
-	var counter = 0;
-	function clock() {
-		d = new Date();
-		document.getElementById("clockString").innerHTML = ("Datum: " + d
-				.toLocaleString());
-	}
-</script>
-
-<script language="javascript">
-	function printAndGoBack() {
-		window.print();
-		window.location='table.jsp';
-	}
-</script>
-
-<body onload="printAndGoBack()">
-	<!--
-	<h2>
-		<span id="clockString"> <script type="text/javascript">
-			var d = new Date();
-			document.write("Datum: " + d.toLocaleString());
-		</script></span>
-	</h2>
-	-->
 	
-
-	<!-- table body is created with for loops -->
-	<table class="printTable">
-		<thead>
-			<tr>
-				<th></th>
-				<th>Mo</th>
-				<th>Di</th>
-				<th>Mi</th>
-				<th>Do</th>
-				<th>Fr</th>
-				<th>Sa</th>
-				<th>So</th>
-			</tr>
-		</thead>
-		<tbody>
-			<%
-				//loop over the rows
-					for (int hour = 0; hour < 14; hour++) {
-			%><tr>
-				<td class="time">
-					<%
-						if (hour + 7 < 10) {
-									out.print("0");
-								}
-								out.print(hour + 7);
-					%>:00
-				</td>
+		UserTable currentUserTable = (UserTable) session.getAttribute("currentUserTable");
+	
+		if (currentUserTable == null) {
+			response.sendRedirect("error.jsp");
+		} else {
+	%>
+	
+	<!-- displays the clock String on the top -->
+	<script>
+		var d = new Date();
+		setInterval(clock, 1000);
+		var counter = 0;
+		function clock() {
+			d = new Date();
+			document.getElementById("clockString").innerHTML = ("Datum: " + d
+					.toLocaleString());
+		}
+	</script>
+	
+	<script language="javascript">
+		function printAndGoBack() {
+			window.print();
+			window.location='table.jsp';
+		}
+	</script>
+	
+	<body onload="printAndGoBack()">
+		<!--
+		<h2>
+			<span id="clockString"> <script type="text/javascript">
+				var d = new Date();
+				document.write("Datum: " + d.toLocaleString());
+			</script></span>
+		</h2>
+		-->
+		
+	
+		<!-- table body is created with for loops -->
+		<table class="printTable">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Mo</th>
+					<th>Di</th>
+					<th>Mi</th>
+					<th>Do</th>
+					<th>Fr</th>
+					<th>Sa</th>
+					<th>So</th>
+				</tr>
+			</thead>
+			<tbody>
 				<%
-					//loop over the columns
-							for (int day = 0; day < 7; day++) {
-				%><td class="table_data"
-					onclick="window.open('tabledata.jsp?cell=<%=day + ":" + hour%>', 'popup', 'width=450,height=400, scrollbars=no, toolbar=no, status=no, resizable=no, menubar=no, location=top, directories=no, top=50, left=50')"
-					onmouseover="this.bgColor='#EEEEEE'"
-					onmouseout="this.bgColor='#FFFFFF'"
-					onmousedown="this.bgColor='#AAAAAA'"
-					onmouseup="this.bgColor='#EEEEEE'">
-					<%
-						if (currentUserTable != null) {
-										out.println(currentUserTable.getEntry(day, hour));
+					//loop over the rows
+						for (int hour = 0; hour < 14; hour++) {
+				%><tr>
+					<td class="time">
+						<%
+							if (hour + 7 < 10) {
+										out.print("0");
 									}
+									out.print(hour + 7);
+						%>:00
+					</td>
+					<%
+						//loop over the columns
+						for (int day = 0; day < 7; day++) {
+							%>
+							<td class="table_data">
+							<%
+								if (currentUserTable != null) {
+									out.println(currentUserTable.getEntry(day, hour));
+								}
+							%>
+							</td>
+							<%
+						}
 					%>
-				</td>
+				</tr>
 				<%
 					}
 				%>
-			</tr>
-			<%
-				}
-			%>
-		</tbody>
-	</table>
-	<%
+			</tbody>
+		</table>
+		<%
 		}
-	%>
+	}
+%>
 
 
 </body>

@@ -90,7 +90,7 @@ h3 {
 	margin-top: 0em;
 }
 
-p, form, input, submit, td, select {
+p, form, input, submit, td, select, button {
 	font-size: 100%;
 	font-weight: 400;
 	color: #191818;

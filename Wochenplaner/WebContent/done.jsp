@@ -33,7 +33,7 @@
 <body>
 
 	<%
-		String source_page = request.getParameter("source_page");
+		String source_page = (String) request.getAttribute("source_page");
 
 		if (session.getAttribute("currentUserID") == null) {
 			response.sendRedirect("index.jsp");
@@ -41,118 +41,19 @@
 			int currentUserID = (Integer) session.getAttribute("currentUserID");
 
 			if (source_page == null) {
-				response.sendRedirect("table.jsp");
+				session.setAttribute("errorMessage", "(done.jsp-source:null)");
+				session.setAttribute("popup", false);
+				response.sendRedirect("error.jsp");
 			} else {
-				if (source_page.equals("tabledata.jsp_edit")) {
-					int day = Integer.parseInt(request.getParameter("day"));
-					int hour = Integer.parseInt(request.getParameter("hour"));
-					String newEntry = request.getParameter("edit_title");
-					String newDescription = request.getParameter("edit_description");
-					UserTable userTable = Utilities.getTable(currentUserID);
-					if (Utilities.updateEntry(currentUserID, day, hour, newEntry, newDescription) == false) {
-	%><h2>Fehler!</h2>
-	<p>Update fehlgeschlagen.</p>
-	<input type="button" onclick="closeAndRefresh()"
-		value="Zum Wochenplaner" autofocus="autofocus" />
-	<%
-		} else {
-						if (userTable.contains(newEntry)) {
-	%>
-	<h2>Änderung gespeichert</h2>
-	<p>
-		Wollen Sie die neue Beschreibung für die bereits gespeicherten Termine
-		von "<%=newEntry%>" übernehmen?
-	</p>
-	<form action="setAllDescriptions.jsp" method="post">
-		<input type="submit" name="submit" value="Ja" /> <input
-			type="hidden" name="source_page" value="done.jsp_setAllDescriptions" />
-		<input type="hidden" name="entry" value="<%=newEntry%>" /> <input
-			type="hidden" name="description" value="<%=newDescription%>" />
-	</form>
-	<input type="button" value="Nein" onclick="closeAndRefresh()" />
-	<%
-		} else {
-	%><h2>Änderung gespeichert</h2>
-	<input type="button" onclick="closeAndRefresh()"
-		value="Zum Wochenplaner" autofocus="autofocus" />
-	<%
-		}
-					}
-
-				} else if (source_page.equals("tabledata.jsp_delete")) {
-					int day = Integer.parseInt(request.getParameter("day"));
-					int hour = Integer.parseInt(request.getParameter("hour"));
-					if (Utilities.deleteEntry(currentUserID, day, hour) == false) {
-	%><h2>Fehler!</h2>
-	<p>Löschen fehlgeschlagen.</p>
-	<input type="button" onclick="closeAndRefresh()"
-		value="Zum Wochenplaner" autofocus="autofocus" />
-	
-	<%
-		} else {
-	%><h2>Änderung gespeichert</h2>
-	<input type="button" onclick="closeAndRefresh()"
-		value="Zum Wochenplaner" autofocus="autofocus" />
-	<%
-		}
-				} else if (source_page.equals("tabledata.jsp_deleteAll")) {
-					int day = Integer.parseInt(request.getParameter("day"));
-					int hour = Integer.parseInt(request.getParameter("hour"));
-					UserTable userTable = Utilities.getTable(currentUserID);
-					String event = userTable.getEntry(day, hour);
-					if (Utilities.deleteAllEvents(currentUserID, event) == false) {
-						%><h2>Fehler!</h2>
-						<p>Löschen fehlgeschlagen.</p>
-						<input type="button" onclick="closeAndRefresh()"
-							value="Zum Wochenplaner" autofocus="autofocus" />
-						<%
-					} else {
-						%><h2>Änderung gespeichert</h2>
-						<input type="button" onclick="closeAndRefresh()"
-							value="Zum Wochenplaner" autofocus="autofocus" />
-						<%
-					}
-				} else if (source_page.equals("moveEntry.jsp")) {
-					int day = Integer.parseInt(request.getParameter("day"));
-					int hour = Integer.parseInt(request.getParameter("hour"));
-					int newDay = Integer.parseInt(request.getParameter("newDay"));
-					int newHour = Integer.parseInt(request.getParameter("newHour"));
-					UserTable userTable = Utilities.getTable(currentUserID);
-					
-					if (Utilities.moveEntry(currentUserID, day, hour, newDay, newHour) == false) {
-						%><h2>Fehler!</h2>
-						<p>Verschieben fehlgeschlagen.</p>
-						<input type="button" onclick="closeAndRefresh()"
-							value="Zum Wochenplaner" autofocus="autofocus" />
-						<%
-					} else {
-						%><h2>Änderung gespeichert</h2>
-						<input type="button" onclick="closeAndRefresh()"
-							value="Zum Wochenplaner" autofocus="autofocus" />
-						<%
-					}
-				} else if (source_page.equals("deleteAccount.jsp")) {
-					User currentUser = Utilities.selectUser(currentUserID);
-					String email = currentUser.getUser_email();
-					String password = request.getParameter("delete_pw");
-					if (Utilities.validatePassword(email, password)) {
-						if (Utilities.deleteUser(currentUserID) == false) {
-							%><h2>Fehler!</h2>
-							<p>Löschen fehlgeschlagen.</p>
-							<input type="button" onclick="window.location='table.jsp'" value="Zum Wochenplaner"/>
-							<%
-						} else {
-							session.invalidate();
-							%><h3>Account erfolgreich gelöscht.</h3>
-							<input type="button" onclick="window.location='index.jsp'" value="Zur Startseite" />
-							<%
-						}
-					} else {
-						%><h2>Fehler!</h2>
-						<p>Löschen fehlgeschlagen.</p>
-						<input type="button" onclick="window.location='table.jsp'" value="Zum Wochenplaner"/>
-						<%
-					}
+				// show view according to source
+				if (source_page.equals("DoneServlet_edit")
+				|| source_page.equals("DoneServlet_delete")
+				|| source_page.equals("DoneServlet_deleteAll")
+				|| source_page.equals("DoneServlet_moveEntry")) {
+					%>
+					<h2>Änderung gespeichert</h2>
+					<input type="button" onclick="closeAndRefresh();" value="Zum Wochenplaner" autofocus="autofocus" />
+					<%	
 				}
 			}
 		}

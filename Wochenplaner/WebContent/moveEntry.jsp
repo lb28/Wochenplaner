@@ -29,62 +29,41 @@
 		}
 	</script>
 
-	<%
-		if (session.getAttribute("currentUserID") == null || request.getParameter("source_page") == null) {
-			%>
-			<h2>Fehler, bitte geh zurück auf die Startseite</h2>
-			<%
-			if (request.getParameter("source_page") == null) {
-				%>
-				<p>(source: null)</p>
-				<input type="submit" onclick="window.location='index.jsp'"
-					value="Zurück" />
-				<%
-			} else {
-				%>
-				<p>(id: null)</p>
-				<input type="submit" onclick="closeAndRefresh();" value="Zurück" />
-				<%
-			}
+		<%
+		if (request.getParameter("source_page") == null) {
+			session.setAttribute("popup", false);
+			session.setAttribute("errorMessage", "(moveEntry.jsp-source:null)");
+			response.sendRedirect("error.jsp");
+		} else if (session.getAttribute("currentUserID") == null) {
+			session.setAttribute("popup", true);
+			session.setAttribute("errorMessage", "(moveEntry.jsp-id:null)");
+			response.sendRedirect("error.jsp");
+		} else if (session.getAttribute("currentUserTable") == null) {
+			session.setAttribute("popup", true);
+			session.setAttribute("errorMessage", "(moveEntry.jsp-:null)");
+			response.sendRedirect("error.jsp");
 		} else {
 			int newDay = Integer.parseInt(request.getParameter("newDay"));
 			int newHour = Integer.parseInt(request.getParameter("newHour"));
 			int day = Integer.parseInt(request.getParameter("day"));
 			int hour = Integer.parseInt(request.getParameter("hour"));
-			int currentUserID = (Integer) session.getAttribute("currentUserID");
 			String newDayString = Utilities.getDay(newDay);
-			UserTable currentUserTable = Utilities.getTable(currentUserID);
-
-			if (currentUserTable != null) {
-				String oldEntry = currentUserTable.getEntry(newDay, newHour);
-				if ((oldEntry == null) || (oldEntry.equals(""))) {
-					if (Utilities.moveEntry(currentUserID, day, hour, newDay, newHour) == false) {
-						%><h2>Fehler!</h2>
-						<p>Verschieben fehlgeschlagen.</p>
-						<input type="button" onclick="closeAndRefresh()"
-							value="Zum Wochenplaner" autofocus="autofocus" />
-						<%
-					} else {
-						%><h2>Änderung gespeichert</h2>
-						<input type="button" onclick="closeAndRefresh()"
-							value="Zum Wochenplaner" autofocus="autofocus" />
-						<%
-					}
-					
-				} else {
-					%>
-					<h3>Termin verschieben</h3>
-					<%
-						if (newDayString != null) {
-					%>
+			UserTable userTable = (UserTable) session.getAttribute("currentUserTable");
+			String oldEntry = userTable.getEntry(newDay, newHour);
+			
+			%>
+			<h3>Termin verschieben</h3>
+				<%
+				if (newDayString != null) {
+				%>
 					<p>
 						nach:
 						<%=newDayString%>,
 						<%=newHour + 7%>
 						Uhr
 					</p>
-					
-					<form action="done.jsp" method="post">
+			
+					<form action="DoneServlet" method="post">
 					Durch Verschieben wird der Eintrag "<%=oldEntry%>" an diesem Termin überschrieben. Bist du sicher?
 					<br/>
 					<br/>
@@ -97,14 +76,9 @@
 					<input class="h_btns" type="button" value="Nein" onclick="window.close();"/>
 					</form>
 					<%
-					}
 				}
 			}
-	%>
-
-	<%
-		}
-	%>
+		%>
 
 </body>
 </html>

@@ -24,17 +24,13 @@
 	response.setHeader("Pragma", "no-cache");
 	response.setDateHeader("Expires", 0);
 
+	UserTable currentUserTable = (UserTable) session.getAttribute("currentUserTable");
 	
-	String source_page = request.getParameter("source_page");
-	UserTable currentUserTable = null;
-
 	if (session.getAttribute("currentUserID") == null) {
 		response.sendRedirect("index.jsp");
-
-		//check if the source is the tabledata page
+	} else if (currentUserTable == null) {
+		response.sendRedirect("TableServlet?source_page=table.jsp");
 	} else {
-		int currentUserID = (Integer) session.getAttribute("currentUserID");
-		currentUserTable = Utilities.getTable(currentUserID);
 %>
 
 <!-- displays the clock String on the top -->
@@ -59,13 +55,16 @@
 	</h3>
 	<!-- 'menu' buttons -->
 	<div id="table_btns_group">
-	<form class="table_btns" action="index.jsp">
-		<input class="table_btns" type="submit" value="Logout" />
-		<input type="hidden" name="source_page" value="table.jsp_logout" />
-	</form>
-	<input class="table_btns" type="button" onclick="window.location='printTable.jsp'" value="Drucken (A4)" />
-	<input class="table_btns" type="button" onclick="window.location='printTable_small.jsp'" value="Drucken (klein)" />
-	<input class="table_btns" type="button" onclick="window.location='deleteAccount.jsp'" value="Account löschen"/>
+		<form class="table_btns" action="index.jsp">
+			<input class="table_btns" type="submit" value="Logout" /> <input
+				type="hidden" name="source_page" value="table.jsp_logout" />
+		</form>
+		<input class="table_btns" type="button"
+			onclick="window.location.href='PrintServlet?size=large'" value="Drucken (A4)" />
+		<input class="table_btns" type="button"
+			onclick="window.location.href='PrintServlet?size=small'" value="Drucken (klein)" />
+		<input class="table_btns" type="button"
+			onclick="window.location='deleteAccount.jsp'" value="Account löschen" />
 	</div>
 
 	<!-- table body is created with for-loops -->
@@ -104,14 +103,12 @@
 					onmouseout="this.bgColor='#FFFFFF'"
 					onmousedown="this.bgColor='#AAAAAA'"
 					onmouseup="this.bgColor='#EEEEEE'"
-					<%if(currentUserTable != null && !(currentUserTable.getDescription(day, hour).equals(""))) {
-						%>title="<%=currentUserTable.getDescription(day, hour)%>"
-					<% }%>
-					>
+					<%if (currentUserTable != null && !(currentUserTable.getDescription(day, hour).equals(""))) {%>
+					title="<%=currentUserTable.getDescription(day, hour)%>" <%}%>>
 					<%
 						if (currentUserTable != null) {
-										out.println(currentUserTable.getEntry(day, hour));
-									}
+							out.println(currentUserTable.getEntry(day, hour));
+						}
 					%>
 				</td>
 				<%

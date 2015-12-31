@@ -39,7 +39,7 @@
 
 	<h1>Willkommen!</h1>
 	<h2>Login:</h2>
-	<form action="hello.jsp" method="post">
+	<form action="LoginServlet" method="post">
 		E-Mail : <input type="email" name="login_email" /> Passwort: <input
 			type="password" name="login_pw" /> <input type="submit"
 			name="submit" value="Login" /> <input type="hidden" name="source_page"

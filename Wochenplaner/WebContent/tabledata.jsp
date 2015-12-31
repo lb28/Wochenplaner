@@ -49,62 +49,54 @@
 		}
 	</script>
 
-	<script type="text/javascript">
-		function closeAndRefresh() {
-			opener.location.reload(true);
-			self.close();
-		}
-	</script>
-
 	<%
-		if (session.getAttribute("currentUserID") == null || request.getParameter("cell") == null) {
-	%>
-	<h2>Fehler, bitte geh zurück auf die Startseite</h2>
-	<p>(source: null)</p>
-	<%
-		if (request.getParameter("cell") == null) {
-	%>
-	<input type="submit" onclick="window.location='index.jsp'"
-		value="Zurück" />
-	<%
-		} else {
-	%>
-	<input type="submit" onclick="closeAndRefresh();" value="Zurück" />
-	<%
-		}
+		boolean popup;
+	
+		if (session.getAttribute("currentUserID") == null
+			|| session.getAttribute("currentUserTable") == null
+			|| request.getParameter("cell") == null) {
+			
+			if (request.getParameter("cell") == null) {
+				popup = false;
+				session.setAttribute("errorMessage", "(cell:null)");
+				response.sendRedirect("error.jsp");
+			} else {
+				popup = true;
+				session.setAttribute("popup", popup);
+				response.sendRedirect("error.jsp");				
+			}
 		} else {
 			String[] source = request.getParameter("cell").split(":");
 			int day = Integer.parseInt(source[0]);
 			int hour = Integer.parseInt(source[1]);
 			int currentUserID = (Integer) session.getAttribute("currentUserID");
-			UserTable currentUserTable = Utilities.getTable(currentUserID);
+
+			UserTable currentUserTable = (UserTable) session.getAttribute("currentUserTable");
+			LinkedList<String> uniqueEntries = Utilities.getUniqueEntries(currentUserTable);
+
 			String entry = "";
 			String description = "";
 			String dayString = Utilities.getDay(day);
-			if (currentUserTable != null) {
-				entry = currentUserTable.getEntry(day, hour);
-				description = currentUserTable.getDescription(day, hour);
-			}
+			entry = currentUserTable.getEntry(day, hour);
+			description = currentUserTable.getDescription(day, hour);
+			
 	%>
 
 	<h3>Veranstaltung bearbeiten</h3>
 	<%
-		if (dayString != null) {
+	if (dayString != null) {
 	%>
-	<p>
+		<p>
 		<%=dayString%>,
 		<%=hour + 7%>
 		Uhr
-	</p>
+		</p>
 	<%
-		}
+	}
 	%>
-
-	<%
-		LinkedList<String> uniqueEntries = Utilities.getUniqueEntries(currentUserID);
-	%>
+	
 	<!-- form for editing an entry -->
-	<form action="done.jsp" method="post">
+	<form action="DoneServlet" method="post">
 	
 		<select id="selectEvent" onchange="titlechange();"
 			title="Hier können Sie aus einer Liste bestehender Veranstaltungen wählen">
@@ -120,31 +112,33 @@
 			<%
 				}
 			%>
-		</select> Titel: <input type="text" id="edit_title" name="edit_title"
+		</select>
+		 Titel: 
+		<input type="text" id="edit_title" name="edit_title"
 			value="<%=entry%>" onkeyup="selectionchange();"
-			onchange="selectionchange();" autofocus="autofocus" /> Beschreibung:
+			onchange="selectionchange();" autofocus="autofocus" />
+		 Beschreibung:
 		<input type="text" name="edit_description" value="<%=description%>" />
-		<input type="submit" name="submit" value="Speichern" /> <input
-			type="hidden" name="source_page" value="tabledata.jsp_edit" /> <input
-			type="hidden" name="day" value="<%=day%>" /> <input type="hidden"
-			name="hour" value="<%=hour%>" />
+		<input type="submit" name="submit" value="Speichern" />
+		<input type="hidden" name="source_page" value="tabledata.jsp_edit" />
+		<input type="hidden" name="day" value="<%=day%>" />
+		<input type="hidden" name="hour" value="<%=hour%>" />
 	</form>
 
 	<!-- form for deleting an entry -->
-	<form action="done.jsp" method="post">
-		<input type="submit" name="submit" value="Eintrag löschen" /> <input
-			type="hidden" name="source_page" value="tabledata.jsp_delete" /> <input
-			type="hidden" name="day" value="<%=day%>" /> <input type="hidden"
-			name="hour" value="<%=hour%>" />
+	<form action="DoneServlet" method="post">
+		<input type="submit" name="submit" value="Eintrag löschen" />
+		<input type="hidden" name="source_page" value="tabledata.jsp_delete" />
+		<input type="hidden" name="day" value="<%=day%>" />
+		<input type="hidden" name="hour" value="<%=hour%>" />
 	</form>
 
 	<!-- form for deleting all entries of an event -->
-	<form action="done.jsp" method="post">
+	<form action="DoneServlet" method="post">
 		<input type="submit" name="submit" value="Veranstaltung löschen" />
-		<input type="hidden" name="source_page"
-			value="tabledata.jsp_deleteAll" /> <input type="hidden" name="day"
-			value="<%=day%>" /> <input type="hidden" name="hour"
-			value="<%=hour%>" />
+		<input type="hidden" name="source_page" value="tabledata.jsp_deleteAll" />
+		<input type="hidden" name="day"	value="<%=day%>" />
+		<input type="hidden" name="hour" value="<%=hour%>" />
 	</form>
 	
 	<%
@@ -153,8 +147,8 @@
 		<!-- horizontal line for separation -->
 		<hr />		
 	
-		<form action="moveEntry.jsp" id="moveEntry">
-		
+		<!-- form for moving an entry -->
+		<form action="DoneServlet" id="moveEntry">
 		Termin verschieben: <select name="newDay">
 				<%
 					for (int d = 0; d < 7; d++) {

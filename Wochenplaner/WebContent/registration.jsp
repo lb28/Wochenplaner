@@ -19,7 +19,7 @@
 	
 	<h1>Willkommen!</h1>
 	<h2>Registrierung:</h2>
-	<form action="hello.jsp" method="post">
+	<form action="RegistrationServlet" method="post">
 		E-Mail : <input type="email" name="reg_email"/>
 		Passwort: <input type="password" name="reg_pw1"/>
 		Passwort wiederholen: <input type="password" name="reg_pw2"/>

@@ -51,8 +51,9 @@ public class DBConnection {
 	/**
 	 * inserts user into the database
 	 * 
+	 * @return true if successful, false otherwise
 	 */
-	public void insert(User user) {
+	public boolean insert(User user) {
 		Connection connection = getConnection();
 		PreparedStatement pstmt;
 		int id;
@@ -69,13 +70,16 @@ public class DBConnection {
 			if (rs.next()) {
 				id = rs.getInt("user_id");
 				createTable(id);
+				return true;
+			} else {
+				return false;
 			}
 
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
-		} finally {
 			closeConnection(connection);
+			return false;
 		}
 
 	}

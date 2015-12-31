@@ -69,8 +69,7 @@ public class Utilities {
 	/**
 	 * returns an array with all unique entries (e.g. the events)
 	 */
-	public static LinkedList<String> getUniqueEntries(int user_id) {
-		UserTable userTable = getTable(user_id);
+	public static LinkedList<String> getUniqueEntries(UserTable userTable) {
 		LinkedList<String> uniqueEntries = new LinkedList<>();
 
 		for (int hour = 0; hour < 14; hour++) {
@@ -101,9 +100,9 @@ public class Utilities {
 		return dbc.getAllUsers();
 	}
 
-	public static void insertUser(User user) {
+	public static boolean insertUser(User user) {
 		DBConnection dbc = new DBConnection();
-		dbc.insert(user);
+		return dbc.insert(user);
 	}
 	
 	public static boolean deleteUser(int id) {
@@ -142,7 +141,7 @@ public class Utilities {
 
 	// for testing
 	public static void main(String[] args) {
-
+		
 	}
 
 }
