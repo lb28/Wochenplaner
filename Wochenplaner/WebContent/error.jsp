@@ -24,18 +24,17 @@
 		</script>
 		
 		<h2>Hoppla...</h2>
+	
+		<h3>Da ist etwas schief gegangen. Bitte gehe zurück zur Startseite.</h3>
 		
 		<%
-		if (session.getAttribute("errorMessage") != null) {
-		String errorMessage = (String) session.getAttribute("errorMessage");
-		%>
-			<h3>Da ist etwas schief gegangen. Bitte gehe zurück zur Startseite.</h3>
-			<p>Fehlermeldung: <%=errorMessage%></p>
-		<%
-		} else {
-		%>
-			<h3>Da ist etwas schief gegangen. Bitte gehe zurück zur Startseite.</h3>
-		<%
+		if (session != null) {
+			String errorMessage = (String) session.getAttribute("errorMessage");
+			if (errorMessage != null && errorMessage.length() > 0) {
+				%>
+				<p>Fehlermeldung: <%=errorMessage%></p>
+				<%
+			}
 		}
 		
 		boolean popup = false;

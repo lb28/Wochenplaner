@@ -27,19 +27,22 @@ public class LoginServlet extends HttpServlet {
 		if (session == null) {
 			response.sendRedirect("error.jsp");
 		} else {
-			// first, determine if the user came from the reg page or login page
+
 			String source_page = request.getParameter("source_page");
 
-			// check if there is a source param at all (there should be)
+			// check if there is a source at all (there should be)
 			if (source_page == null) {
 				response.sendRedirect("index.jsp");
 
 				// check if the source is the login page
 			} else if (source_page.equals("index.jsp")) {
-
+				
 				String email = request.getParameter("login_email");
 				String password = request.getParameter("login_pw");
-				if (Utilities.validatePassword(email, password)) {
+				if (email == null || password == null || email.length() == 0 || password.length() == 0) {
+					session.setAttribute("errorMessage", "Gib alle Daten ein!");
+					response.sendRedirect("error.jsp");
+				} else if (Utilities.validatePassword(email, password)) {
 					User currentUser = Utilities.selectUser(email);
 					int currentUserID = currentUser.getUser_id();
 					UserTable currentUserTable = Utilities.getTable(currentUserID);
@@ -52,8 +55,9 @@ public class LoginServlet extends HttpServlet {
 					session.setAttribute("errorMessage", "Falsche E-Mail-Adresse oder falsches Passwort");
 					response.sendRedirect("error.jsp");
 				}
+			
 			} else {
-				session.setAttribute("errorMessage", "(unknown source)");
+				session.setAttribute("errorMessage", "(unknown source: '"+source_page+"')");
 				response.sendRedirect("error.jsp");
 			}
 

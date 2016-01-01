@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<%@page import="com.sun.java.swing.plaf.windows.resources.windows"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 	
@@ -18,19 +17,7 @@
 </head>
 <%
 	if (session.getAttribute("currentUserID") != null) {
-		String source_page = request.getParameter("source_page");
-		if (source_page != null) {
-			//if source page is the logout button
-			if (source_page.equals("table.jsp_logout")) {
-				session.invalidate();
-				//why would you want to see the login page if you are logged in?
-			} else {
-				response.sendRedirect("table.jsp");
-			}
-			//this prevents users from going to the index page by entering the url while logged in
-		} else {
-			response.sendRedirect("table.jsp");
-		}
+		response.sendRedirect("table.jsp");
 	}
 %>
 

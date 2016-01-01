@@ -21,7 +21,6 @@ public class User {
 		}
 	}
 
-	
 	public User(int user_id, String user_email, String pwHash) {
 		this.id = user_id;
 		this.email = user_email;

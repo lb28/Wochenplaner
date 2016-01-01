@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<%@page import="de.uulm.sopra.luisb.wochenplaner.db.User"%>
-<%@page import="de.uulm.sopra.luisb.wochenplaner.db.UserTable"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@page import="de.uulm.sopra.luisb.wochenplaner.util.Utilities"%>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -54,6 +51,25 @@
 					<h2>Änderung gespeichert</h2>
 					<input type="button" onclick="closeAndRefresh();" value="Zum Wochenplaner" autofocus="autofocus" />
 					<%	
+				} else if (source_page.equals("DoneServlet_deleteAccount")) {
+					session.invalidate();
+					%>
+					<h3>Account erfolgreich gelöscht.</h3>
+					<input type="button" onclick="window.location='index.jsp'" value="Zur Startseite" />
+					<%
+				} else if (source_page.equals("DoneServlet_setAllDescriptions")) {
+					%>
+					<h2>Änderung für alle Termine gespeichert</h2>
+					<%
+					if (request.getAttribute("updateCount") != null) {
+						int updateCount = (Integer) request.getAttribute("updateCount");
+						%>
+						<p>(<%=updateCount%> Einträge wurden geändert)</p>
+						<%
+					}
+					%>	
+					<input type="button" onclick="closeAndRefresh()" value="Zum Wochenplaner" autofocus="autofocus" />
+					<%
 				}
 			}
 		}

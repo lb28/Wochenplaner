@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@page import="de.uulm.sopra.luisb.wochenplaner.util.Utilities"%>
 <%@page import="de.uulm.sopra.luisb.wochenplaner.db.UserTable"%>
 
 <!DOCTYPE html>
@@ -55,9 +54,9 @@
 	</h3>
 	<!-- 'menu' buttons -->
 	<div id="table_btns_group">
-		<form class="table_btns" action="index.jsp">
-			<input class="table_btns" type="submit" value="Logout" /> <input
-				type="hidden" name="source_page" value="table.jsp_logout" />
+		<form class="table_btns" action="LogoutServlet">
+			<input class="table_btns" type="submit" value="Logout" />
+			<input type="hidden" name="source_page" value="table.jsp_logout" />
 		</form>
 		<input class="table_btns" type="button"
 			onclick="window.location.href='PrintServlet?size=large'" value="Drucken (A4)" />

@@ -21,7 +21,7 @@ if (session.getAttribute("currentUserID") == null) {
 %>
 
 	<h2>
-		Account löschen?
+	Account löschen?
 	</h2>
 	
 	<p>
@@ -33,7 +33,7 @@ if (session.getAttribute("currentUserID") == null) {
 	Falls ja, geben Sie ihr Passwort ein, um den Löschvorgang zu bestätigen.
 	</p>
 			
-	<form action="done.jsp" method="post">
+	<form action="DoneServlet" method="post">
 		Passwort: <input type="password" name="delete_pw" />
 		<input type="submit" name="submit" value="Account löschen" />
 		<input type="hidden" name="source_page" value="deleteAccount.jsp" />

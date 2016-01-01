@@ -2,9 +2,11 @@ package de.uulm.sopra.luisb.wochenplaner.util;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Collections;
 import java.util.LinkedList;
 
-import javax.mail.internet.*;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 
 import de.uulm.sopra.luisb.wochenplaner.db.DBConnection;
 import de.uulm.sopra.luisb.wochenplaner.db.User;
@@ -67,7 +69,7 @@ public class Utilities {
 	}
 
 	/**
-	 * returns an array with all unique entries (e.g. the events)
+	 * returns a sorted list with all unique entries (e.g. the events)
 	 */
 	public static LinkedList<String> getUniqueEntries(UserTable userTable) {
 		LinkedList<String> uniqueEntries = new LinkedList<>();
@@ -81,6 +83,7 @@ public class Utilities {
 				}
 			}
 		}
+		Collections.sort(uniqueEntries);
 		
 		return uniqueEntries;
 	}
@@ -93,11 +96,6 @@ public class Utilities {
 	public static User selectUser(int user_id) {
 		DBConnection dbc = new DBConnection();
 		return dbc.selectUser(user_id);
-	}
-	
-	public static LinkedList<User> getAllUsers() {
-		DBConnection dbc = new DBConnection();
-		return dbc.getAllUsers();
 	}
 
 	public static boolean insertUser(User user) {

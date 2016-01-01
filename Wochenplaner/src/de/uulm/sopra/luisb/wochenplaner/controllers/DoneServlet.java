@@ -37,7 +37,7 @@ public class DoneServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String source_page = request.getParameter("source_page");
 		UserTable userTable = null;
-		
+
 		if (session.getAttribute("currentUserID") == null) {
 			response.sendRedirect("index.jsp");
 		} else {
@@ -89,7 +89,7 @@ public class DoneServlet extends HttpServlet {
 						RequestDispatcher rd = request.getRequestDispatcher("done.jsp");
 						rd.forward(request, response);
 					}
-				
+
 				} else if (source_page.equals("tabledata.jsp_deleteAll")) {
 					int day = Integer.parseInt(request.getParameter("day"));
 					int hour = Integer.parseInt(request.getParameter("hour"));
@@ -112,10 +112,9 @@ public class DoneServlet extends HttpServlet {
 					int newHour = Integer.parseInt(request.getParameter("newHour"));
 					int day = Integer.parseInt(request.getParameter("day"));
 					int hour = Integer.parseInt(request.getParameter("hour"));
-					String newDayString = Utilities.getDay(newDay);
 					userTable = Utilities.getTable(currentUserID);
 					String oldEntry = userTable.getEntry(newDay, newHour);
-					
+
 					if ((oldEntry == null) || (oldEntry.equals(""))) {
 						if (Utilities.moveEntry(currentUserID, day, hour, newDay, newHour) == false) {
 							session.setAttribute("popup", true);
@@ -133,13 +132,13 @@ public class DoneServlet extends HttpServlet {
 						RequestDispatcher rd = request.getRequestDispatcher("moveEntry.jsp");
 						rd.forward(request, response);
 					}
-					
+
 				} else if (source_page.equals("moveEntry.jsp")) {
 					int newDay = Integer.parseInt(request.getParameter("newDay"));
 					int newHour = Integer.parseInt(request.getParameter("newHour"));
 					int day = Integer.parseInt(request.getParameter("day"));
 					int hour = Integer.parseInt(request.getParameter("hour"));
-					
+
 					if (Utilities.moveEntry(currentUserID, day, hour, newDay, newHour) == false) {
 						session.setAttribute("popup", true);
 						session.setAttribute("errorMessage", "Verschieben fehlgeschlagen.");
@@ -151,64 +150,51 @@ public class DoneServlet extends HttpServlet {
 						request.setAttribute("source_page", "DoneServlet_moveEntry");
 						RequestDispatcher rd = request.getRequestDispatcher("done.jsp");
 						rd.forward(request, response);
-					}	
-					
-					
+					}
+
 				} else if (source_page.equals("deleteAccount.jsp")) {
 					User currentUser = Utilities.selectUser(currentUserID);
 					String email = currentUser.getUser_email();
 					String password = request.getParameter("delete_pw");
 					if (Utilities.validatePassword(email, password)) {
 						if (Utilities.deleteUser(currentUserID) == false) {
-							// %><h2>Fehler!</h2>
-							// <p>Löschen fehlgeschlagen.</p>
-							// <input type="button"
-							// onclick="window.location='table.jsp'" value="Zum
-							// Wochenplaner"/>
-							// <%
+							session.setAttribute("popup", false);
+							session.setAttribute("errorMessage", "Löschen fehlgeschlagen.");
+							response.sendRedirect("error.jsp");
 						} else {
-							// session.invalidate();
-							// %><h3>Account erfolgreich gelöscht.</h3>
-							// <input type="button"
-							// onclick="window.location='index.jsp'" value="Zur
-							// Startseite" />
-							// <%
+							request.setAttribute("source_page", "DoneServlet_deleteAccount");
+							RequestDispatcher rd = request.getRequestDispatcher("done.jsp");
+							rd.forward(request, response);
 						}
 					} else {
-						// %><h2>Fehler!</h2>
-						// <p>Löschen fehlgeschlagen.</p>
-						// <input type="button"
-						// onclick="window.location='table.jsp'" value="Zum
-						// Wochenplaner"/>
-						// <%
+						session.setAttribute("popup", false);
+						session.setAttribute("errorMessage", "Löschen fehlgeschlagen.");
+						response.sendRedirect("error.jsp");
 					}
-				} else if (source_page.equals("done.jsp_setAllDescriptions")) {
+				} else if (source_page.equals("setAllDescriptions.jsp")) {
 					String entry = request.getParameter("entry");
 					String newDescription = request.getParameter("description");
-					
-/* 					// debugging
-					System.out.println("Entry: \""+entry+"\" ");
-					System.out.println("Description: \""+newDescription+"\" ");
- */					
+
+					/*
+					 * // debugging
+					 * System.out.println("Entry: \""+entry+"\"");
+					 * System.out.println("Description: \""+newDescription+"\"");
+					 */
 					int updateCount = Utilities.updateAll(currentUserID, entry, newDescription);
-					
+
 					if (updateCount == -1) {
-						// %>
-						// <h2>Fehler!</h2>
-						// <p>Update fehlgeschlagen.</p>
-						// <%
-					 } else {
-						// %>
-						// <h2>Änderung für alle Termine gespeichert</h2>
-						// <p>(<%=updateCount%> Einträge wurden
-						// überschrieben)</p>
-						// <input type="button" onclick="closeAndRefresh()"
-						// value="Zum Wochenplaner" autofocus="autofocus" />
-						// <%
-					 }
+						session.setAttribute("popup", false);
+						session.setAttribute("errorMessage", "Update fehlgeschlagen.");
+						response.sendRedirect("error.jsp");
+					} else {
+						request.setAttribute("updateCount", updateCount);
+						request.setAttribute("source_page", "DoneServlet_setAllDescriptions");
+						RequestDispatcher rd = request.getRequestDispatcher("done.jsp");
+						rd.forward(request, response);
+					}
 				} else {
-					//unknown source
-					session.setAttribute("errorMessage", "(unknown source)");
+					// unknown source
+					session.setAttribute("errorMessage", "(DoneServlet-unknown source)");
 					session.setAttribute("popup", true);
 					response.sendRedirect("error.jsp");
 				}

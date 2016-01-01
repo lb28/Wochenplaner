@@ -38,9 +38,10 @@ public class PrintServlet extends HttpServlet {
 		if (session == null) {
 			response.sendRedirect("error.jsp");
 		} else if (size == null) {
-			session.setAttribute("errorMessage", "(size:null)");
+			session.setAttribute("errorMessage", "(PrintServlet-size:null)");
 			response.sendRedirect("error.jsp");
 		} else if (session.getAttribute("currentUserID") == null) {
+			session.setAttribute("errorMessage", "(PrintServlet-id:null)");
 			response.sendRedirect("error.jsp");
 		} else {
 			int currentUserID = (Integer) session.getAttribute("currentUserID");
@@ -55,11 +56,9 @@ public class PrintServlet extends HttpServlet {
 			} else if (size.equals("large")) {
 				response.sendRedirect("printTable.jsp");
 			} else {
-				session.setAttribute("errorMessage", "(unknown size)");
+				session.setAttribute("errorMessage", "(PrintServlet-unknown size)");
 				response.sendRedirect("error.jsp");
 			}
-
-			// TODO logic from printTable.jsp & handle size
 
 		}
 	}

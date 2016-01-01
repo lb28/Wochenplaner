@@ -49,22 +49,22 @@
 		}
 	</script>
 
-	<%
-		boolean popup;
-	
-		if (session.getAttribute("currentUserID") == null
-			|| session.getAttribute("currentUserTable") == null
-			|| request.getParameter("cell") == null) {
+	<%	
+		
 			
-			if (request.getParameter("cell") == null) {
-				popup = false;
-				session.setAttribute("errorMessage", "(cell:null)");
-				response.sendRedirect("error.jsp");
-			} else {
-				popup = true;
-				session.setAttribute("popup", popup);
-				response.sendRedirect("error.jsp");				
-			}
+		if (request.getParameter("cell") == null) {
+			session.setAttribute("popup", false);
+			session.setAttribute("errorMessage", "(tabledata-cell:null)");
+			response.sendRedirect("error.jsp");
+		} else if (session.getAttribute("currentUserID") == null) {
+			session.setAttribute("errorMessage", "(tabledata-id:null)");
+			session.setAttribute("popup", false);
+			response.sendRedirect("error.jsp");				
+		} else if (session.getAttribute("currentUserTable") == null) {
+			session.setAttribute("errorMessage", "(tabledata-userTable:null)");
+			session.setAttribute("popup", true);
+			response.sendRedirect("error.jsp");	
+		
 		} else {
 			String[] source = request.getParameter("cell").split(":");
 			int day = Integer.parseInt(source[0]);
