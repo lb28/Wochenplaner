@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <%@page import="com.sun.java.swing.plaf.windows.resources.windows"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@page import="de.uulm.sopra.luisb.wochenplaner.util.Utilities"%>
 <%@page import="de.uulm.sopra.luisb.wochenplaner.db.UserTable"%>
-<%@page import="java.util.LinkedList"%>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">

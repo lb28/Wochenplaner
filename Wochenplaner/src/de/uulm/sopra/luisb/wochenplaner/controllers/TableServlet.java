@@ -44,6 +44,7 @@ public class TableServlet extends HttpServlet {
 		} else if (source_page.equals("table.jsp")) {
 			int currentUserID = (Integer) session.getAttribute("currentUserID");
 			UserTable currentUserTable = Utilities.getTable(currentUserID);
+			System.out.println(currentUserTable.hashCode());
 			session.setAttribute("currentUserTable", currentUserTable);
 			response.sendRedirect("table.jsp");
 		}

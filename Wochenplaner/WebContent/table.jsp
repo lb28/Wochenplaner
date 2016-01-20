@@ -24,12 +24,14 @@
 	response.setDateHeader("Expires", 0);
 
 	UserTable currentUserTable = (UserTable) session.getAttribute("currentUserTable");
-	
+
 	if (session.getAttribute("currentUserID") == null) {
 		response.sendRedirect("index.jsp");
 	} else if (currentUserTable == null) {
 		response.sendRedirect("TableServlet?source_page=table.jsp");
 	} else {
+
+		System.out.println(currentUserTable.hashCode());
 %>
 
 <!-- displays the clock String on the top -->
@@ -55,14 +57,14 @@
 	<!-- 'menu' buttons -->
 	<div id="table_btns_group">
 		<form class="table_btns" action="LogoutServlet">
-			<input class="table_btns" type="submit" value="Logout" />
-			<input type="hidden" name="source_page" value="table.jsp_logout" />
+			<input class="table_btns" type="submit" value="Logout" /> <input
+				type="hidden" name="source_page" value="table.jsp_logout" />
 		</form>
 		<input class="table_btns" type="button"
-			onclick="window.location.href='PrintServlet?size=large'" value="Drucken (A4)" />
-		<input class="table_btns" type="button"
-			onclick="window.location.href='PrintServlet?size=small'" value="Drucken (klein)" />
-		<input class="table_btns" type="button"
+			onclick="window.location.href='PrintServlet?size=large'"
+			value="Drucken (A4)" /> <input class="table_btns" type="button"
+			onclick="window.location.href='PrintServlet?size=small'"
+			value="Drucken (klein)" /> <input class="table_btns" type="button"
 			onclick="window.location='deleteAccount.jsp'" value="Account löschen" />
 	</div>
 
@@ -106,8 +108,8 @@
 					title="<%=currentUserTable.getDescription(day, hour)%>" <%}%>>
 					<%
 						if (currentUserTable != null) {
-							out.println(currentUserTable.getEntry(day, hour));
-						}
+										out.println(currentUserTable.getEntry(day, hour));
+									}
 					%>
 				</td>
 				<%

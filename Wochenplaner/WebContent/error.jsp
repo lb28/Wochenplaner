@@ -37,6 +37,12 @@
 			}
 		}
 		
+		%>
+		<p>Hier ist ein Spiel zum aufheitern</p>
+		<jsp:include page="dino.jsp"></jsp:include>
+		
+		<%
+		
 		boolean popup = false;
 		if (session.getAttribute("popup") != null) {
 			popup = (boolean) session.getAttribute("popup");

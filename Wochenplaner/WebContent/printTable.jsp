@@ -41,7 +41,7 @@
 		}
 	</script>
 	
-	<script language="javascript">
+	<script>
 		function printAndGoBack() {
 			window.print();
 			window.location='table.jsp';

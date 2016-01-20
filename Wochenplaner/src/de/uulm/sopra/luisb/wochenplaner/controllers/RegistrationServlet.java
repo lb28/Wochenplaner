@@ -22,6 +22,7 @@ public class RegistrationServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		response.setContentType("text/html");
+
 		HttpSession session = request.getSession(false);
 
 		// don't let the user register if they are logged in
@@ -39,8 +40,8 @@ public class RegistrationServlet extends HttpServlet {
 					User user = new User(email, pw1);
 					if (Utilities.insertUser(user)) {
 						session.setAttribute("email", email);
+						
 						request.setAttribute("source_page", "RegistrationServlet");
-
 						RequestDispatcher rd = request.getRequestDispatcher("hello.jsp");
 						rd.forward(request, response);
 
@@ -50,7 +51,6 @@ public class RegistrationServlet extends HttpServlet {
 				} else {
 					session.setAttribute("errorMessage", "Gib eine gültige E-Mail-Adresse ein!");
 					response.sendRedirect("error.jsp");
-					System.out.println("falsche email");
 				}
 			} else {
 				session.setAttribute("errorMessage", "Gib alle Daten ein!");

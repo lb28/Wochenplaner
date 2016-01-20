@@ -116,9 +116,9 @@
 		 Titel: 
 		<input type="text" id="edit_title" name="edit_title"
 			value="<%=entry%>" onkeyup="selectionchange();"
-			onchange="selectionchange();" autofocus="autofocus" />
+			onchange="selectionchange();" autofocus="autofocus" maxlength="128"/>
 		 Beschreibung:
-		<input type="text" name="edit_description" value="<%=description%>" />
+		<input type="text" name="edit_description" value="<%=description%>" maxlength="128"/>
 		<input type="submit" name="submit" value="Speichern" />
 		<input type="hidden" name="source_page" value="tabledata.jsp_edit" />
 		<input type="hidden" name="day" value="<%=day%>" />

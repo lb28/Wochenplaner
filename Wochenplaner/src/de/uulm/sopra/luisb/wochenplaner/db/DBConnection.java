@@ -60,7 +60,7 @@ public class DBConnection {
 			pstmt.setString(1, user.getUser_email());
 			pstmt.setString(2, user.getPwHash());
 			pstmt.execute();
-
+			
 			pstmt = connection.prepareStatement("SELECT user_id FROM user WHERE user_email = ?");
 			pstmt.setString(1, user.getUser_email());
 			ResultSet rs = pstmt.executeQuery();
